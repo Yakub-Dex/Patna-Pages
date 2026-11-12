@@ -37,7 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Right: Nav Links moved further right + Language & Theme Toggles */}
         <div className="flex items-center gap-5 sm:gap-7 overflow-x-auto scrollbar-none py-1">
-          <nav className="flex items-center gap-4 sm:gap-6 text-xs sm:text-[13px] font-medium text-[#5B615E] dark:text-[#9BA19E]">
+          <nav className="flex items-center gap-4 sm:gap-6 text-sm font-medium text-[#5B615E] dark:text-[#9BA19E]">
             {navLinks.map((link) => (
               <a
                 key={link.href}

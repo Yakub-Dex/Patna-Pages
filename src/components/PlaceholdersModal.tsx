@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { X, Check, Copy, ExternalLink, Code2 } from 'lucide-react';
-import { REQUIRED_PLACEHOLDERS, PATNA_CONFIG } from '../config/patnaConfig';
+import { X, Check, Copy, Code2 } from 'lucide-react';
+import { REQUIRED_PLACEHOLDERS } from '../config/patnaConfig';
 
 interface PlaceholdersModalProps {
   isOpen: boolean;
@@ -70,12 +70,12 @@ export const PlaceholdersModal: React.FC<PlaceholdersModalProps> = ({ isOpen, on
                     {copiedKey === item.key ? (
                       <>
                         <Check className="w-3.5 h-3.5 text-blue-600" />
-                        <span className="text-blue-600 text-[11px]">Copied</span>
+                        <span className="text-blue-600 text-xs">Copied</span>
                       </>
                     ) : (
                       <>
                         <Copy className="w-3.5 h-3.5 text-neutral-400" />
-                        <span className="text-[11px]">Copy</span>
+                        <span className="text-xs">Copy</span>
                       </>
                     )}
                   </button>
@@ -102,7 +102,7 @@ export const PlaceholdersModal: React.FC<PlaceholdersModalProps> = ({ isOpen, on
         <div className="px-6 py-4 border-t hairline-border bg-neutral-50 dark:bg-[#151817] flex justify-end">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-xs font-semibold rounded-lg text-white bg-[#2541b2] hover:bg-[#1D3394] transition-colors"
+            className="px-5 py-2.5 text-base font-semibold rounded-lg text-white bg-[#2541b2] hover:bg-[#1D3394] transition-colors"
           >
             Done Reviewing
           </button>

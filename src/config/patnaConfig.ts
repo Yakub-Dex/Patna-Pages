@@ -26,9 +26,12 @@ export interface PatnaConfig {
   facebookUrl: string;
   copyrightYear: number;
   solutionByline: string;
+  legalEntityName: string;
+  googleAnalyticsId: string;
 }
 
 export const PATNA_CONFIG: PatnaConfig = {
+  legalEntityName: 'Patnacom Services',
   companyName: 'Patnacom Services. A Service Company',
   solutionByline: 'A Patnacom Services Solution',
   brandName: 'Patna',
@@ -49,6 +52,7 @@ export const PATNA_CONFIG: PatnaConfig = {
   androidAppStatus: 'coming_soon',
   iosAppStatus: 'coming_soon',
   copyrightYear: 2026,
+  googleAnalyticsId: '', // PLACEHOLDER: e.g., 'G-XXXXXXXXXX'. Leave empty for zero tracking.
 };
 
 /**
@@ -105,5 +109,12 @@ export const REQUIRED_PLACEHOLDERS = [
     current: 'In-app accessible modal dialogues with complete standard terms',
     fileLocation: 'src/config/patnaConfig.ts',
     purpose: 'Full regulatory compliance with Tanzanian communications standards.',
+  },
+  {
+    key: 'googleAnalyticsId',
+    label: 'Google Analytics 4 Measurement ID',
+    current: PATNA_CONFIG.googleAnalyticsId || 'Not configured (privacy-first default: zero tracking)',
+    fileLocation: 'src/config/patnaConfig.ts',
+    purpose: 'Web traffic insights. Enter your G-XXXXXXXXXX ID to activate automatically, or leave blank to remain tracking-free.',
   },
 ];

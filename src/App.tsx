@@ -3,7 +3,6 @@ import {
   MessageSquare,
   ArrowRight,
   ArrowUpRight,
-  ShieldCheck,
   MapPin,
   Rocket,
   Smartphone,
@@ -17,12 +16,6 @@ import {
   Phone,
   Mail,
   FileText,
-  Lock,
-  Layers,
-  Check,
-  Building2,
-  Calendar,
-  ExternalLink,
   Instagram,
   Facebook,
   Clock4,
@@ -35,12 +28,26 @@ import { MultiChannelSimulator } from './components/MultiChannelSimulator';
 import { FaqAccordion } from './components/FaqAccordion';
 import { PlaceholdersModal } from './components/PlaceholdersModal';
 import { LegalModal } from './components/LegalModal';
+import { CookieBanner } from './components/CookieBanner';
+import { NotFoundPage } from './components/NotFoundPage';
 
 export default function App() {
+  const [currentPath, setCurrentPath] = useState<string>(
+    typeof window !== 'undefined' ? window.location.pathname : '/'
+  );
   const [lang, setLang] = useState<Language>('en');
   const [isDark, setIsDark] = useState<boolean>(false);
   const [placeholdersModalOpen, setPlaceholdersModalOpen] = useState<boolean>(false);
-  const [legalModalType, setLegalModalType] = useState<'privacy' | 'terms' | null>(null);
+  const [legalModalType, setLegalModalType] = useState<'privacy' | 'terms' | 'about' | null>(null);
+
+  // Handle browser popstate navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Sync dark class on document element
   useEffect(() => {
@@ -50,6 +57,24 @@ export default function App() {
       document.documentElement.classList.remove('dark');
     }
   }, [isDark]);
+
+  // Optional Analytics setup: loads only if an ID is explicitly configured
+  useEffect(() => {
+    if (PATNA_CONFIG.googleAnalyticsId && typeof window !== 'undefined') {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${PATNA_CONFIG.googleAnalyticsId}`;
+      document.head.appendChild(script);
+
+      const win = window as unknown as { dataLayer?: unknown[] };
+      win.dataLayer = win.dataLayer || [];
+      const gtag = (...args: unknown[]) => {
+        win.dataLayer?.push(args);
+      };
+      gtag('js', new Date());
+      gtag('config', PATNA_CONFIG.googleAnalyticsId);
+    }
+  }, []);
 
   const t = translations[lang];
 
@@ -62,22 +87,22 @@ export default function App() {
   };
 
   // Icon mapping helper for audiences
-
-  const getAudienceIcon = (role: string) => {
-    const r = role.toLowerCase();
-    if (r.includes('trader') || r.includes('retailer') || r.includes('rejareja') || r.includes('maduka') || r.includes('distributor') || r.includes('wasambazaji'))
-      return <Store className="w-5 h-5 text-[#2541b2]" />;
-    if (r.includes('manufact') || r.includes('viwanda'))
-      return <Factory className="w-5 h-5 text-[#2541b2]" />;
-    if (r.includes('food') || r.includes('restaurant') || r.includes('mama lishe') || r.includes('migahawa') || r.includes('chakula'))
-      return <UtensilsCrossed className="w-5 h-5 text-[#2541b2]" />;
-    if (r.includes('service') || r.includes('huduma'))
-      return <Briefcase className="w-5 h-5 text-[#2541b2]" />;
-    if (r.includes('transport') || r.includes('usafiri') || r.includes('boda') || r.includes('logistics'))
-      return <Truck className="w-5 h-5 text-[#2541b2]" />;
-    if (r.includes('entrepreneur') || r.includes('wajasiriamali'))
-      return <Rocket className="w-5 h-5 text-[#2541b2]" />;
-    return <Rocket className="w-5 h-5 text-[#2541b2]" />;
+  const getAudienceIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'Store':
+        return <Store className="w-5 h-5 text-[#2541b2]" />;
+      case 'Factory':
+        return <Factory className="w-5 h-5 text-[#2541b2]" />;
+      case 'UtensilsCrossed':
+        return <UtensilsCrossed className="w-5 h-5 text-[#2541b2]" />;
+      case 'Briefcase':
+        return <Briefcase className="w-5 h-5 text-[#2541b2]" />;
+      case 'Truck':
+        return <Truck className="w-5 h-5 text-[#2541b2]" />;
+      case 'Rocket':
+      default:
+        return <Rocket className="w-5 h-5 text-[#2541b2]" />;
+    }
   };
 
   const getChannelIcon = (iconName: string) => {
@@ -92,6 +117,17 @@ export default function App() {
         return <AppWindow className="w-5 h-5 text-[#2541b2]" />;
     }
   };
+
+  if (currentPath !== '/' && currentPath !== '') {
+    return (
+      <NotFoundPage
+        onGoHome={() => {
+          window.history.pushState({}, '', '/');
+          setCurrentPath('/');
+        }}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#FBFBFA] dark:bg-[#0C0E0D] text-[#141716] dark:text-[#E8EAE9] font-sans flex flex-col selection:bg-[#2541b2]/20 selection:text-[#2541b2]">
@@ -112,7 +148,7 @@ export default function App() {
               {/* Left Column: Value Proposition & CTAs */}
               <div className="lg:col-span-6 space-y-6">
                 {/* Main Headline */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-tight text-[#141716] dark:text-[#E8EAE9] leading-[1.12] text-balance">
+                <h1 className="text-[32px] sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-tight text-[#141716] dark:text-[#E8EAE9] leading-[1.12] text-balance">
                   {t.hero.headlineStart}
                   <span className="text-[#2541b2] dark:text-[#5B7CF6] block sm:inline">
                     {t.hero.headlineHighlight}
@@ -134,7 +170,7 @@ export default function App() {
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-white bg-[#2541b2] hover:bg-[#1D3394] transition-all group"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base text-white bg-[#2541b2] hover:bg-[#1D3394] transition-all group"
                   >
                     <MessageSquare className="w-4 h-4" />
                     <span>{t.hero.ctaWhatsApp}</span>
@@ -143,7 +179,7 @@ export default function App() {
 
                   <a
                     href="#for-businesses"
-                    className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-medium border hairline-border bg-white dark:bg-[#151817] text-[#141716] dark:text-[#E8EAE9] hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-medium text-base border hairline-border bg-white dark:bg-[#151817] text-[#141716] dark:text-[#E8EAE9] hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                   >
                     <span>{t.hero.ctaBusiness}</span>
                     <ArrowRight className="w-4 h-4 text-neutral-400" />
@@ -152,7 +188,7 @@ export default function App() {
 
                 {/* Channel Access Breakdown */}
                 <div className="pt-4 border-t hairline-border flex flex-wrap items-center gap-x-3 gap-y-2 text-xs font-mono text-[#717774] dark:text-[#8D9490]">
-                  <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded bg-[#F5B942]/15 text-[#b07d1a] dark:text-[#F5B942] border border-[#F5B942]/30 font-medium">
+                  <span className="inline-flex items-center gap-1 text-xs font-mono px-2 py-0.5 rounded bg-[#F5B942]/15 text-[#b07d1a] dark:text-[#F5B942] border border-[#F5B942]/30 font-medium">
                     <Clock4 className="w-2.5 h-2.5 text-[#b07d1a] dark:text-[#F5B942] shrink-0" />
                     <span>{t.hero.channelsLabel}:</span>
                   </span>
@@ -183,10 +219,10 @@ export default function App() {
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#2541b2] dark:text-[#5B7CF6] block mb-2">
                 {t.howItWorks.sectionTag}
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#141716] dark:text-[#E8EAE9] tracking-tight leading-tight mb-3">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#141716] dark:text-[#E8EAE9] tracking-tight leading-tight mb-3">
                 {t.howItWorks.title}
               </h2>
-              <p className="text-sm sm:text-base text-[#5B615E] dark:text-[#9BA19E]">
+              <p className="text-base text-[#5B615E] dark:text-[#9BA19E]">
                 {t.howItWorks.subtitle}
               </p>
             </div>
@@ -202,15 +238,15 @@ export default function App() {
                     <span className="text-2xl font-mono font-bold text-[#2541b2] dark:text-[#5B7CF6] block mb-4 group-hover:scale-105 transition-transform origin-left">
                       {step.number}
                     </span>
-                    <h3 className="text-base font-bold text-[#141716] dark:text-[#E8EAE9] mb-2 leading-snug">
+                    <h3 className="text-xl font-bold text-[#141716] dark:text-[#E8EAE9] mb-2 leading-snug">
                       {step.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#5B615E] dark:text-[#9BA19E] leading-relaxed mb-4">
+                    <p className="text-base text-[#5B615E] dark:text-[#9BA19E] leading-relaxed mb-4">
                       {step.description}
                     </p>
                   </div>
                   <div className="pt-3">
-                    <span className="text-[11px] font-mono text-[#717774] dark:text-[#8D9490] block">
+                    <span className="text-xs font-mono text-[#717774] dark:text-[#8D9490] block">
                       {step.detail}
                     </span>
                   </div>
@@ -227,10 +263,10 @@ export default function App() {
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#2541b2] dark:text-[#5B7CF6] block mb-2">
                 {t.channels.sectionTag}
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#141716] dark:text-[#E8EAE9] tracking-tight leading-tight mb-3">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#141716] dark:text-[#E8EAE9] tracking-tight leading-tight mb-3">
                 {t.channels.title}
               </h2>
-              <p className="text-sm sm:text-base text-[#5B615E] dark:text-[#9BA19E]">
+              <p className="text-base text-[#5B615E] dark:text-[#9BA19E]">
                 {t.channels.subtitle}
               </p>
             </div>
@@ -248,22 +284,22 @@ export default function App() {
                       </div>
                       {channel.badge && (
                         channel.badge.toLowerCase().includes('coming soon') || channel.badge.toLowerCase().includes('inakuja') ? (
-                          <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded bg-[#F5B942]/15 text-[#b07d1a] dark:text-[#F5B942] border border-[#F5B942]/30 font-medium">
+                          <span className="inline-flex items-center gap-1 text-xs font-mono px-2 py-0.5 rounded bg-[#F5B942]/15 text-[#b07d1a] dark:text-[#F5B942] border border-[#F5B942]/30 font-medium">
                             <Clock4 className="w-2.5 h-2.5 text-[#b07d1a] dark:text-[#F5B942]" />
                             <span>{channel.badge}</span>
                           </span>
                         ) : (
-                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-100 dark:bg-[#1C201E] text-[#5B615E] dark:text-[#9BA19E] border hairline-border">
+                          <span className="text-xs font-mono px-2 py-0.5 rounded bg-neutral-100 dark:bg-[#1C201E] text-[#5B615E] dark:text-[#9BA19E] border hairline-border">
                             {channel.badge}
                           </span>
                         )
                       )}
                     </div>
 
-                    <h3 className="text-base font-bold text-[#141716] dark:text-[#E8EAE9] mb-2">
+                    <h3 className="text-xl font-bold text-[#141716] dark:text-[#E8EAE9] mb-2">
                       {channel.name}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#5B615E] dark:text-[#9BA19E] leading-relaxed">
+                    <p className="text-base text-[#5B615E] dark:text-[#9BA19E] leading-relaxed">
                       {channel.description}
                     </p>
                   </div>
@@ -280,10 +316,10 @@ export default function App() {
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#2541b2] dark:text-[#5B7CF6] block mb-2">
                 {t.categories.sectionTag}
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#141716] dark:text-[#E8EAE9] tracking-tight leading-tight mb-3">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#141716] dark:text-[#E8EAE9] tracking-tight leading-tight mb-3">
                 {t.categories.title}
               </h2>
-              <p className="text-sm sm:text-base text-[#5B615E] dark:text-[#9BA19E]">
+              <p className="text-base text-[#5B615E] dark:text-[#9BA19E]">
                 {t.categories.subtitle}
               </p>
             </div>
@@ -299,23 +335,23 @@ export default function App() {
                   <div className="flex-1 flex flex-col">
                     <div className="flex items-center justify-end mb-3 min-h-[22px]">
                       {cat.isComingSoon && (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded bg-[#F5B942]/15 text-[#b07d1a] dark:text-[#F5B942] border border-[#F5B942]/30 font-medium">
+                        <span className="inline-flex items-center gap-1 text-xs font-mono px-2 py-0.5 rounded bg-[#F5B942]/15 text-[#b07d1a] dark:text-[#F5B942] border border-[#F5B942]/30 font-medium">
                           <Clock4 className="w-2.5 h-2.5 text-[#b07d1a] dark:text-[#F5B942] shrink-0" />
                           <span>{lang === 'sw' ? 'Inakuja Hivi Karibuni' : 'Coming Soon'}</span>
                         </span>
                       )}
                     </div>
 
-                    <h3 className="text-lg font-bold text-[#141716] dark:text-[#E8EAE9] mb-1.5 min-h-[28px] flex items-center">
+                    <h3 className="text-xl font-bold text-[#141716] dark:text-[#E8EAE9] mb-1.5 min-h-[28px] flex items-center">
                       {cat.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#5B615E] dark:text-[#9BA19E] mb-5 min-h-[56px] sm:min-h-[64px] flex items-start leading-relaxed">
+                    <p className="text-base text-[#5B615E] dark:text-[#9BA19E] mb-5 min-h-[56px] sm:min-h-[64px] flex items-start leading-relaxed">
                       {cat.description}
                     </p>
 
                     {/* Example Query Box */}
                     <div className="p-3.5 rounded-xl bg-[#F7F8F7] dark:bg-[#161918] border border-neutral-200/80 dark:border-neutral-800 flex items-center mt-auto">
-                      <p className="text-xs italic text-[#141716] dark:text-[#E8EAE9] line-clamp-2">
+                      <p className="text-sm italic text-[#141716] dark:text-[#E8EAE9] line-clamp-2">
                         {cat.example}
                       </p>
                     </div>
@@ -333,10 +369,10 @@ export default function App() {
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#2541b2] dark:text-[#5B7CF6] block mb-2">
                 {t.audiences.sectionTag}
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#141716] dark:text-[#E8EAE9] tracking-tight leading-tight mb-3">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#141716] dark:text-[#E8EAE9] tracking-tight leading-tight mb-3">
                 {t.audiences.title}
               </h2>
-              <p className="text-sm sm:text-base text-[#5B615E] dark:text-[#9BA19E]">
+              <p className="text-base text-[#5B615E] dark:text-[#9BA19E]">
                 {t.audiences.subtitle}
               </p>
             </div>
@@ -350,23 +386,23 @@ export default function App() {
                   <div>
                     <div className="flex items-center gap-3 mb-4">
                       <div className="p-2.5 rounded-lg bg-neutral-100 dark:bg-[#1A1E1C]">
-                        {getAudienceIcon(aud.role)}
+                        {getAudienceIcon(aud.icon)}
                       </div>
-                      <h3 className="text-base font-bold text-[#141716] dark:text-[#E8EAE9]">
+                      <h3 className="text-xl font-bold text-[#141716] dark:text-[#E8EAE9]">
                         {aud.role}
                       </h3>
                     </div>
 
-                    <p className="text-xs sm:text-sm text-[#5B615E] dark:text-[#9BA19E] leading-relaxed mb-4">
+                    <p className="text-base text-[#5B615E] dark:text-[#9BA19E] leading-relaxed mb-4">
                       {aud.description}
                     </p>
                   </div>
 
                   <div className="pt-3 border-t hairline-border bg-white dark:bg-[#161918] -mx-6 -mb-6 p-4 rounded-b-2xl border-t border-neutral-200/80 dark:border-neutral-800">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#2541b2] dark:text-[#5B7CF6] font-semibold block mb-0.5">
+                    <span className="text-xs font-mono uppercase tracking-wider text-[#2541b2] dark:text-[#5B7CF6] font-semibold block mb-0.5">
                       The Patna Advantage:
                     </span>
-                    <span className="text-xs font-medium text-[#141716] dark:text-[#E8EAE9]">
+                    <span className="text-sm font-medium text-[#141716] dark:text-[#E8EAE9]">
                       {aud.benefit}
                     </span>
                   </div>
@@ -376,17 +412,17 @@ export default function App() {
           </div>
         </section>
 
-        {/* 6. Privacy and Trust */}
+        {/* 7. Privacy and Trust */}
         <section className="py-16 sm:py-24 border-b hairline-border">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mb-12 sm:mb-16">
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#2541b2] dark:text-[#5B7CF6] block mb-2">
                 {t.trust.sectionTag}
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#141716] dark:text-[#E8EAE9] tracking-tight leading-tight mb-3">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#141716] dark:text-[#E8EAE9] tracking-tight leading-tight mb-3">
                 {t.trust.title}
               </h2>
-              <p className="text-sm sm:text-base text-[#5B615E] dark:text-[#9BA19E]">
+              <p className="text-base text-[#5B615E] dark:text-[#9BA19E]">
                 {t.trust.subtitle}
               </p>
             </div>
@@ -401,10 +437,10 @@ export default function App() {
                     <span className="text-xs font-mono font-bold text-[#2541b2] dark:text-[#5B7CF6] uppercase tracking-wider block mb-3">
                       {pillar.metric}
                     </span>
-                    <h3 className="text-base font-bold text-[#141716] dark:text-[#E8EAE9] mb-2 leading-snug">
+                    <h3 className="text-xl font-bold text-[#141716] dark:text-[#E8EAE9] mb-2 leading-snug">
                       {pillar.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#5B615E] dark:text-[#9BA19E] leading-relaxed">
+                    <p className="text-base text-[#5B615E] dark:text-[#9BA19E] leading-relaxed">
                       {pillar.description}
                     </p>
                   </div>
@@ -414,7 +450,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* 9. For Businesses (Pitch to Merchants & Providers) */}
+        {/* 8. For Businesses (Pitch to Merchants & Providers) */}
         <section id="for-businesses" className="py-16 sm:py-24 border-b hairline-border bg-neutral-50/40 dark:bg-[#0E1110]">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl space-y-6">
@@ -422,7 +458,7 @@ export default function App() {
                 <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#2541b2] dark:text-[#5B7CF6] block mb-2">
                   {t.forBusinesses.sectionTag}
                 </span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#141716] dark:text-[#E8EAE9] tracking-tight leading-tight mb-3">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#141716] dark:text-[#E8EAE9] tracking-tight leading-tight mb-3">
                   {t.forBusinesses.title}
                 </h2>
                 <p className="text-base text-[#5B615E] dark:text-[#9BA19E]">
@@ -436,10 +472,10 @@ export default function App() {
                     key={idx}
                     className="p-5 rounded-xl border hairline-border bg-white dark:bg-[#121514]"
                   >
-                    <h4 className="text-sm font-bold text-[#141716] dark:text-[#E8EAE9] mb-1.5">
+                    <h4 className="text-base font-bold text-[#141716] dark:text-[#E8EAE9] mb-1.5">
                       {b.title}
                     </h4>
-                    <p className="text-xs text-[#5B615E] dark:text-[#9BA19E] leading-relaxed">
+                    <p className="text-base text-[#5B615E] dark:text-[#9BA19E] leading-relaxed">
                       {b.description}
                     </p>
                   </div>
@@ -455,7 +491,7 @@ export default function App() {
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-white bg-[#2541b2] hover:bg-[#1D3394] transition-all group"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base text-white bg-[#2541b2] hover:bg-[#1D3394] transition-all group"
                 >
                   <MessageSquare className="w-4 h-4" />
                   <span>{t.forBusinesses.providerCta}</span>
@@ -466,17 +502,17 @@ export default function App() {
           </div>
         </section>
 
-        {/* 10. FAQ (Accordion) */}
+        {/* 9. FAQ (Accordion) */}
         <section id="faq" className="py-16 sm:py-24 border-b hairline-border">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mb-12 sm:mb-16">
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#2541b2] dark:text-[#5B7CF6] block mb-2">
                 {t.faq.sectionTag}
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#141716] dark:text-[#E8EAE9] tracking-tight leading-tight mb-3">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#141716] dark:text-[#E8EAE9] tracking-tight leading-tight mb-3">
                 {t.faq.title}
               </h2>
-              <p className="text-sm sm:text-base text-[#5B615E] dark:text-[#9BA19E]">
+              <p className="text-base text-[#5B615E] dark:text-[#9BA19E]">
                 {t.faq.subtitle}
               </p>
             </div>
@@ -488,7 +524,7 @@ export default function App() {
         </section>
       </main>
 
-      {/* 12. Footer */}
+      {/* 10. Footer */}
       <footer className="border-t hairline-border bg-white dark:bg-[#0C0E0D] text-[#5B615E] dark:text-[#9BA19E] text-xs">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-12">
@@ -508,6 +544,14 @@ export default function App() {
                 {t.footer.legalTitle}
               </span>
               <ul className="space-y-2 text-xs">
+                <li>
+                  <button
+                    onClick={() => setLegalModalType('about')}
+                    className="hover:text-[#141716] dark:hover:text-[#E8EAE9] transition-colors text-left"
+                  >
+                    {t.footer.aboutUs}
+                  </button>
+                </li>
                 <li>
                   <button
                     onClick={() => setLegalModalType('privacy')}
@@ -536,7 +580,7 @@ export default function App() {
               </ul>
             </div>
 
-            {/* Col 4: Contact & Social */}
+            {/* Col 3: Contact & Social */}
             <div className="space-y-3">
               <span className="text-xs font-mono uppercase tracking-wider text-[#141716] dark:text-[#E8EAE9] font-bold block mb-3">
                 {t.footer.contactTitle}
@@ -572,7 +616,7 @@ export default function App() {
 
                 {/* Social Media Links */}
                 <div className="pt-2">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#717774] dark:text-[#8D9490] block mb-1.5">
+                  <span className="text-xs font-mono uppercase tracking-wider text-[#717774] dark:text-[#8D9490] block mb-1.5">
                     {t.footer.socialTitle}
                   </span>
                   <div className="flex items-center gap-2">
@@ -620,6 +664,12 @@ export default function App() {
       <LegalModal
         type={legalModalType}
         onClose={() => setLegalModalType(null)}
+      />
+
+      {/* Cookie Consent Banner */}
+      <CookieBanner
+        lang={lang}
+        onOpenPrivacy={() => setLegalModalType('privacy')}
       />
     </div>
   );

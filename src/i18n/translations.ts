@@ -120,27 +120,6 @@ export interface TranslationDictionary {
       icon: string;
     }>;
   };
-  slang: {
-    sectionTag: string;
-    title: string;
-    subtitle: string;
-    rawMessageLabel: string;
-    structuredCardLabel: string;
-    features: Array<{
-      title: string;
-      description: string;
-    }>;
-    demoToggleTitle: string;
-    examples: Array<{
-      id: string;
-      input: string;
-      category: string;
-      priceCap: string;
-      urgency: string;
-      destination: string;
-      notes: string;
-    }>;
-  };
   trust: {
     sectionTag: string;
     title: string;
@@ -192,6 +171,7 @@ export interface TranslationDictionary {
     legalTitle: string;
     contactTitle: string;
     socialTitle: string;
+    aboutUs: string;
     privacy: string;
     terms: string;
     placeholdersTrigger: string;
@@ -214,7 +194,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       headlineStart: 'Your Huduma Moja Desk. ',
       headlineHighlight: 'Just ask on WhatsApp or SMS.',
       subheading:
-        'Ask in Swahili, English, or everyday slang—Patna brings matched offers within minutes from verified local providers straight to your chat and helps in fulfilling it.',
+        'Ask in Swahili or English—Patna brings matched offers within minutes from verified local providers straight to your chat and helps in fulfilling it.',
       ctaWhatsApp: 'Start now',
       ctaBusiness: 'List your business',
       channelsLabel: 'Coming soon',
@@ -432,7 +412,7 @@ export const translations: Record<Language, TranslationDictionary> = {
         {
           number: '01',
           title: 'Ask in your own words',
-          description: 'Type a message on WhatsApp, send an SMS to our number, or search on Web/App. Use everyday Swahili, English, or slang like "laki 8".',
+          description: 'Type a message on WhatsApp, send an SMS to our number, or search on Web/App. Use everyday Swahili or English with terms like "laki 8".',
           detail: 'No specific format required. Patna parses natural expressions and intent.',
         },
         {
@@ -583,57 +563,6 @@ export const translations: Record<Language, TranslationDictionary> = {
         },
       ],
     },
-    slang: {
-      sectionTag: '05 — Local Language Engine',
-      title: 'Built for how Tanzanians actually talk.',
-      subtitle: 'No rigid formal forms. Patna understands Swahili, English, mixed codes, and local slang.',
-      rawMessageLabel: 'Raw Customer Message',
-      structuredCardLabel: 'Structured Patna Enquiry',
-      features: [
-        {
-          title: 'Currency Shorthand',
-          description: 'Understands “laki 8” (TZS 800,000), “moko na nusu” or “1.5m” (TZS 1,500,000), and “buku tatu” (TZS 3,000).',
-        },
-        {
-          title: 'Temporal Expressions',
-          description: 'Interprets “kesho asubuhi”, “leo mchana”, “weekend hii”, and “ndani ya saa mbili” accurately into UTC+3 timestamps.',
-        },
-        {
-          title: 'Local Neighborhood Geography',
-          description: 'Recognizes local landmarks from “Msimbazi”, “Mwenge kituo cha daladala”, “Posta mpya”, to “Keko Furniture”.',
-        },
-      ],
-      demoToggleTitle: 'Try switching real conversation examples below:',
-      examples: [
-        {
-          id: 'slang-phone',
-          input: '“Ebana Patna mchongo vipi, nahitaji tecno camon au infinix ya kijanja isiyozidi laki 4 pande za Sinza au Mwenge.”',
-          category: 'Mobile Devices',
-          priceCap: 'TZS 400,000 Max (Laki 4)',
-          urgency: 'Same day',
-          destination: 'Sinza / Mwenge Corridor',
-          notes: 'Target models: Tecno Camon or modern Infinix. Local pickup preferred.',
-        },
-        {
-          id: 'slang-bus',
-          input: '“Kaka naomba bus ya Arusha kwenda Mwanza Alhamisi hii, seat ya mbele luxury, budget 50k.”',
-          category: 'Intercity Bus',
-          priceCap: 'TZS 50,000',
-          urgency: 'Thursday Morning Departure',
-          destination: 'Arusha → Mwanza',
-          notes: 'Front row seat requested, semi-luxury coach class.',
-        },
-        {
-          id: 'slang-truck',
-          input: '“Nahitaji canter kesho asubuhi kubeba mbao toka Temeke kwenda Boko, bei gani?”',
-          category: 'Freight & Haulage',
-          priceCap: 'Provider Competitive Quote',
-          urgency: 'Tomorrow Morning',
-          destination: 'Temeke → Boko (Approx 38km)',
-          notes: 'Cargo: Timber planks. Medium flatbed / canter truck required.',
-        },
-      ],
-    },
     trust: {
       sectionTag: 'Privacy & Integrity',
       title: 'Private by default. Complete peace of mind.',
@@ -699,7 +628,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       items: [
         {
           q: 'What exactly is Patna?',
-          a: 'Patna is a WhatsApp, SMS, Web, and App-based search and recommendation service for Tanzania, operated by Patnacom Services in Dar es Salaam. Instead of browsing endless Instagram pages or calling multiple contacts, you message Patna with what you need in plain Swahili, English, or slang. Patna extracts your requirements, queries verified local businesses, and brings back competitive offers directly into your chat.',
+          a: 'Patna is a WhatsApp, SMS, Web, and App-based search and recommendation service for Tanzania, operated by Patnacom Services in Dar es Salaam. Instead of browsing endless Instagram pages or calling multiple contacts, you message Patna with what you need in plain Swahili or English. Patna extracts your requirements, queries verified local businesses, and brings back competitive offers directly into your chat.',
         },
         {
           q: 'Is Patna free for customers searching?',
@@ -744,6 +673,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       legalTitle: 'Legal & Compliance',
       contactTitle: 'Contact Us',
       socialTitle: 'Follow Us',
+      aboutUs: 'About Us',
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',
       placeholdersTrigger: 'Config & Placeholders Checklist',
@@ -764,7 +694,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       headlineStart: 'Dawati Lako la Huduma Moja. ',
       headlineHighlight: 'Uliza tu WhatsApp au SMS.',
       subheading:
-        'Uliza kwa Kiswahili, Kiingereza au lugha ya mtaani—Patna inakuletea ofa zilizochaguliwa ndani ya dakika chache kutoka kwa watoa huduma walioidhinishwa moja kwa moja kwenye chat yako na kusaidia katika ukamilishaji wake.',
+        'Uliza kwa Kiswahili au Kiingereza—Patna inakuletea ofa zilizochaguliwa ndani ya dakika chache kutoka kwa watoa huduma walioidhinishwa moja kwa moja kwenye chat yako na kusaidia katika ukamilishaji wake.',
       ctaWhatsApp: 'Anza sasa',
       ctaBusiness: 'Sajili biashara yako',
       channelsLabel: 'Inakuja hivi karibuni',
@@ -982,7 +912,7 @@ export const translations: Record<Language, TranslationDictionary> = {
         {
           number: '01',
           title: 'Uliza kwa maneno yako',
-          description: 'Andika ujumbe WhatsApp, tuma SMS kwenye namba yetu, au tafuta mtandaoni. Tumia Kiswahili, Kiingereza au misamiati ya mtaani kama "laki 8".',
+          description: 'Andika ujumbe WhatsApp, tuma SMS kwenye namba yetu, au tafuta mtandaoni. Tumia Kiswahili au Kiingereza pamoja na maneno kama "laki 8".',
           detail: 'Hakuna fomula maalum. Patna inatambua maana na dhamira ya maneno yako.',
         },
         {
@@ -1133,57 +1063,6 @@ export const translations: Record<Language, TranslationDictionary> = {
         },
       ],
     },
-    slang: {
-      sectionTag: '05 — Mfumo wa Lugha ya Ndani',
-      title: 'Imeelewa namna Watanzania wanavyoongea haswa.',
-      subtitle: 'Bila maneno magumu ya kiofisi. Patna inaelewa Kiswahili, Kiingereza, na lugha safi ya mtaani.',
-      rawMessageLabel: 'Ujumbe Halisi wa Mteja',
-      structuredCardLabel: 'Ombi Lililopangwa na Patna',
-      features: [
-        {
-          title: 'Vifupisho vya Bei',
-          description: 'Inaelewa “laki 8” (TZS 800,000), “moko na nusu” au “1.5m” (TZS 1,500,000), na “buku tatu” (TZS 3,000).',
-        },
-        {
-          title: 'Muda wa Kienyeji',
-          description: 'Inatambua kwa usahihi “kesho asubuhi”, “leo mchana”, “weekend hii”, na “ndani ya saa mbili”.',
-        },
-        {
-          title: 'Mitaa na Vituo vya Dar na Mikoani',
-          description: 'Inatambua maeneo maarufu toka “Msimbazi”, “Mwenge stand”, “Posta mpya”, hadi “Keko samani”.',
-        },
-      ],
-      demoToggleTitle: 'Badilisha mifano ya maongezi hapa chini uone:',
-      examples: [
-        {
-          id: 'slang-phone',
-          input: '“Ebana Patna mchongo vipi, nahitaji tecno camon au infinix ya kijanja isiyozidi laki 4 pande za Sinza au Mwenge.”',
-          category: 'Simu za Mkononi',
-          priceCap: 'TZS 400,000 Mwisho (Laki 4)',
-          urgency: 'Siku ya leo',
-          destination: 'Ukanda wa Sinza na Mwenge',
-          notes: 'Aina: Tecno Camon au Infinix mpya. Mteja yuko tayari kufuata mzigo.',
-        },
-        {
-          id: 'slang-bus',
-          input: '“Kaka naomba bus ya Arusha kwenda Mwanza Alhamisi hii, seat ya mbele luxury, budget 50k.”',
-          category: 'Mabasi ya Mikoani',
-          priceCap: 'TZS 50,000',
-          urgency: 'Alhamisi Asubuhi',
-          destination: 'Arusha → Mwanza',
-          notes: 'Kiti cha mbele, basi daraja la luxury lenye nafasi nzuri.',
-        },
-        {
-          id: 'slang-truck',
-          input: '“Nahitaji canter kesho asubuhi kubeba mbao toka Temeke kwenda Boko, bei gani?”',
-          category: 'Usafirishaji wa Mizigo',
-          priceCap: 'Bei shindani ya watoa huduma',
-          urgency: 'Kesho Asubuhi',
-          destination: 'Temeke → Boko (Takriban km 38)',
-          notes: 'Mzigo: Mbao za kuezeka. Gari la canter linahitajika.',
-        },
-      ],
-    },
     trust: {
       sectionTag: 'Usalama na Faragha',
       title: 'Faragha yako kwanza. Amani ya moyo.',
@@ -1249,7 +1128,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       items: [
         {
           q: 'Patna ni nini hasa?',
-          a: 'Patna ni huduma ya kutafuta na kupendekeza bidhaa na huduma nchini Tanzania kupitia WhatsApp, SMS, Tovuti na App, inayoendeshwa na Patnacom Services jijini Dar es Salaam. Badala ya kuhangaika Instagram au kupiga simu kwa marafiki, unamwandikia Patna unachohitaji kwa Kiswahili au lugha ya mtaani. Patna inatambua hitaji lako, inawauliza wauzaji na watoa huduma wa karibu, na inakuletea ofa zao bora moja kwa moja kwenye simu yako.',
+          a: 'Patna ni huduma ya kutafuta na kupendekeza bidhaa na huduma nchini Tanzania kupitia WhatsApp, SMS, Tovuti na App, inayoendeshwa na Patnacom Services jijini Dar es Salaam. Badala ya kuhangaika Instagram au kupiga simu kwa marafiki, unamwandikia Patna unachohitaji kwa Kiswahili au Kiingereza. Patna inatambua hitaji lako, inawauliza wauzaji na watoa huduma wa karibu, na inakuletea ofa zao bora moja kwa moja kwenye simu yako.',
         },
         {
           q: 'Je, huduma ya Patna ni bure kwa mteja anayetafuta?',
@@ -1294,6 +1173,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       legalTitle: 'Sheria na Uzingatiaji',
       contactTitle: 'Wasiliana Nasi',
       socialTitle: 'Tufuate',
+      aboutUs: 'Kuhusu Sisi',
       privacy: 'Sera ya Faragha',
       terms: 'Vigezo na Masharti',
       placeholdersTrigger: 'Orodha ya Taarifa za Kubadilisha',

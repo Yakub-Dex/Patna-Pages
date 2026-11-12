@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://patna.co.tz/sitemap.xml
