@@ -30,6 +30,7 @@ import { PlaceholdersModal } from './components/PlaceholdersModal';
 import { LegalModal } from './components/LegalModal';
 import { CookieBanner } from './components/CookieBanner';
 import { NotFoundPage } from './components/NotFoundPage';
+import { useTermsConsent, useMerchantConsent } from './utils/termsConsent';
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState<string>(
@@ -38,7 +39,13 @@ export default function App() {
   const [lang, setLang] = useState<Language>('en');
   const [isDark, setIsDark] = useState<boolean>(false);
   const [placeholdersModalOpen, setPlaceholdersModalOpen] = useState<boolean>(false);
-  const [legalModalType, setLegalModalType] = useState<'privacy' | 'terms' | 'about' | null>(null);
+  const [legalModalType, setLegalModalType] = useState<'privacy' | 'terms' | 'merchant' | 'about' | null>(null);
+  const { isAccepted, acceptTerms } = useTermsConsent();
+  const { isMerchantAccepted, acceptMerchantAgreement } = useMerchantConsent();
+  const [heroTermsAgreed, setHeroTermsAgreed] = useState<boolean>(false);
+  const [showHeroWarning, setShowHeroWarning] = useState<boolean>(false);
+  const [businessTermsAgreed, setBusinessTermsAgreed] = useState<boolean>(false);
+  const [showBusinessWarning, setShowBusinessWarning] = useState<boolean>(false);
 
   // Handle browser popstate navigation
   useEffect(() => {
@@ -170,6 +177,14 @@ export default function App() {
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={(e) => {
+                      if (!isAccepted && !heroTermsAgreed) {
+                        e.preventDefault();
+                        setShowHeroWarning(true);
+                      } else if (heroTermsAgreed && !isAccepted) {
+                        acceptTerms();
+                      }
+                    }}
                     className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base text-white bg-[#2541b2] hover:bg-[#1D3394] transition-all group"
                   >
                     <MessageSquare className="w-4 h-4" />
@@ -184,6 +199,78 @@ export default function App() {
                     <span>{t.hero.ctaBusiness}</span>
                     <ArrowRight className="w-4 h-4 text-neutral-400" />
                   </a>
+                </div>
+
+                {/* Hero Affirmative Agreement Checkbox */}
+                <div className="pt-2">
+                  <label className="inline-flex items-start gap-2.5 text-xs text-[#5B615E] dark:text-[#9BA19E] cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      id="hero-terms-checkbox"
+                      checked={isAccepted || heroTermsAgreed}
+                      onChange={(e) => {
+                        setHeroTermsAgreed(e.target.checked);
+                        if (e.target.checked) {
+                          acceptTerms();
+                          setShowHeroWarning(false);
+                        }
+                      }}
+                      className="mt-0.5 w-4 h-4 rounded border-neutral-300 dark:border-neutral-600 text-[#2541b2] focus:ring-[#2541b2] cursor-pointer shrink-0"
+                    />
+                    <span>
+                      {lang === 'sw' ? (
+                        <>
+                          Ninakubaliana na{' '}
+                          <button
+                            type="button"
+                            onClick={() => setLegalModalType('terms')}
+                            className="text-[#2541b2] dark:text-[#5B7CF6] font-semibold underline underline-offset-2 hover:opacity-80"
+                          >
+                            Masharti ya Huduma
+                          </button>{' '}
+                          na{' '}
+                          <button
+                            type="button"
+                            onClick={() => setLegalModalType('privacy')}
+                            className="text-[#2541b2] dark:text-[#5B7CF6] font-semibold underline underline-offset-2 hover:opacity-80"
+                          >
+                            Sera ya Faragha
+                          </button>{' '}
+                          ya Patnacom Services.
+                        </>
+                      ) : (
+                        <>
+                          I have read and affirmatively accept the{' '}
+                          <button
+                            type="button"
+                            onClick={() => setLegalModalType('terms')}
+                            className="text-[#2541b2] dark:text-[#5B7CF6] font-semibold underline underline-offset-2 hover:opacity-80"
+                          >
+                            Terms of Service
+                          </button>{' '}
+                          and{' '}
+                          <button
+                            type="button"
+                            onClick={() => setLegalModalType('privacy')}
+                            className="text-[#2541b2] dark:text-[#5B7CF6] font-semibold underline underline-offset-2 hover:opacity-80"
+                          >
+                            Privacy Policy
+                          </button>{' '}
+                          of Patnacom Services.
+                        </>
+                      )}
+                    </span>
+                  </label>
+                  {showHeroWarning && !isAccepted && !heroTermsAgreed && (
+                    <p className="mt-1.5 text-xs font-medium text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
+                      <span>⚠️</span>
+                      <span>
+                        {lang === 'sw'
+                          ? 'Tafadhali weka alama kwenye kisanduku cha kukubali Masharti ya Huduma kwanza.'
+                          : 'Please check the agreement box to accept the Terms of Service before continuing.'}
+                      </span>
+                    </p>
+                  )}
                 </div>
 
                 {/* Channel Access Breakdown */}
@@ -482,21 +569,87 @@ export default function App() {
                 ))}
               </div>
 
-              <div className="pt-2">
-                <a
-                  href={getWhatsAppUrl(
-                    lang === 'en'
-                      ? 'Hi Patna, I want to join as a business provider. Here are my details...'
-                      : 'Mambo Patna, nahitaji kujiunga kama mfanyabiashara. Maelezo yangu ni...'
+              <div className="pt-2 flex flex-col gap-3">
+                <div>
+                  <a
+                    href={getWhatsAppUrl(
+                      lang === 'en'
+                        ? 'Hi Patna, I want to join as a business provider. Here are my details...'
+                        : 'Mambo Patna, nahitaji kujiunga kama mfanyabiashara. Maelezo yangu ni...'
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => {
+                      if (!isMerchantAccepted && !businessTermsAgreed) {
+                        e.preventDefault();
+                        setShowBusinessWarning(true);
+                      } else if (businessTermsAgreed && !isMerchantAccepted) {
+                        acceptMerchantAgreement();
+                      }
+                    }}
+                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base text-white bg-[#2541b2] hover:bg-[#1D3394] transition-all group"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    <span>{t.forBusinesses.providerCta}</span>
+                    <ArrowUpRight className="w-4 h-4 opacity-75 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
+                </div>
+
+                {/* Provider Affirmative Agreement Checkbox */}
+                <div>
+                  <label className="inline-flex items-start gap-2.5 text-xs text-[#5B615E] dark:text-[#9BA19E] cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      id="business-terms-checkbox"
+                      checked={isMerchantAccepted || businessTermsAgreed}
+                      onChange={(e) => {
+                        setBusinessTermsAgreed(e.target.checked);
+                        if (e.target.checked) {
+                          acceptMerchantAgreement();
+                          setShowBusinessWarning(false);
+                        }
+                      }}
+                      className="mt-0.5 w-4 h-4 rounded border-neutral-300 dark:border-neutral-600 text-[#2541b2] focus:ring-[#2541b2] cursor-pointer shrink-0"
+                    />
+                    <span>
+                      {lang === 'sw' ? (
+                        <>
+                          Kama mfanyabiashara au mtoa huduma, ninathibitisha kuwa ninakubali viwango vya mfumo na{' '}
+                          <button
+                            type="button"
+                            onClick={() => setLegalModalType('merchant')}
+                            className="text-[#2541b2] dark:text-[#5B7CF6] font-semibold underline underline-offset-2 hover:opacity-80"
+                          >
+                            Makubaliano ya Wafanyabiashara na Watoa Huduma
+                          </button>{' '}
+                          ya Patnacom Services.
+                        </>
+                      ) : (
+                        <>
+                          As a merchant or service provider, I confirm that I agree to the platform standards and{' '}
+                          <button
+                            type="button"
+                            onClick={() => setLegalModalType('merchant')}
+                            className="text-[#2541b2] dark:text-[#5B7CF6] font-semibold underline underline-offset-2 hover:opacity-80"
+                          >
+                            Merchant and Service Provider Agreement
+                          </button>{' '}
+                          of Patnacom Services.
+                        </>
+                      )}
+                    </span>
+                  </label>
+                  {showBusinessWarning && !isMerchantAccepted && !businessTermsAgreed && (
+                    <p className="mt-1.5 text-xs font-medium text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
+                      <span>⚠️</span>
+                      <span>
+                        {lang === 'sw'
+                          ? 'Tafadhali weka alama kwenye kisanduku cha kukubali Makubaliano ya Wafanyabiashara na Watoa Huduma kwanza.'
+                          : 'Please check the agreement box to accept the Merchant and Service Provider Agreement before continuing.'}
+                      </span>
+                    </p>
                   )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base text-white bg-[#2541b2] hover:bg-[#1D3394] transition-all group"
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  <span>{t.forBusinesses.providerCta}</span>
-                  <ArrowUpRight className="w-4 h-4 opacity-75 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </a>
+                </div>
               </div>
             </div>
           </div>
@@ -666,10 +819,11 @@ export default function App() {
         onClose={() => setLegalModalType(null)}
       />
 
-      {/* Cookie Consent Banner */}
+      {/* Terms & Cookie Consent Banner */}
       <CookieBanner
         lang={lang}
         onOpenPrivacy={() => setLegalModalType('privacy')}
+        onOpenTerms={() => setLegalModalType('terms')}
       />
     </div>
   );

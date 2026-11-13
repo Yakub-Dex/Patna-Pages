@@ -1,0 +1,509 @@
+# PATNA MERCHANT AND SERVICE PROVIDER AGREEMENT
+
+**Effective Date:01/December/2026
+**Last Updated:11/November/2026
+
+**Platform:** Patna
+**Operated by:** Patnacom Services
+**Location:** Dar es Salaam, Tanzania
+**Email:** [support@patnacom.co.tz](mailto\:support@patnacom.co.tz)
+**Website:** [https://patnacom.co.tz](https://patnacom.co.tz)
+
+---
+
+## 1. INTRODUCTION
+
+This Merchant and Service Provider Agreement ("Agreement") sets out the terms and conditions governing the participation of merchants, traders, businesses and independent service providers ("Merchant") on Patna, a commerce search, recommendation and booking facilitation platform operated by Patnacom Services ("Patna", "we", "our" or "us").
+
+Patna helps customers discover, compare, request quotations from and connect with independent merchants and service providers through communication channels including WhatsApp, SMS, websites, mobile applications and other interfaces made available by Patna.
+
+By registering for, subscribing to or using Patna's merchant services, the Merchant agrees to comply with this Agreement.
+
+## 2. DEFINITIONS
+
+For purposes of this Agreement:
+
+- **Patna:** The commerce search and booking facilitation platform operated by Patnacom Services.
+- **Merchant:** An independent business, trader, seller or service provider registered or participating on Patna.
+- **Customer:** An individual or business using Patna to search for, enquire about, compare or purchase goods and services.
+- **Listing:** Business information, product details, service descriptions, prices, images and other content displayed through Patna.
+- **Enquiry:** A customer's request for information, availability, quotations or offers.
+- **Quotation:** A price offer or proposal submitted by a Merchant in response to a customer enquiry.
+- **Booking:** An arrangement between a Customer and Merchant for the supply of goods or performance of services.
+- **Subscription Fee:** A fee payable by a Merchant for access to a selected Patna merchant subscription or listing plan.
+
+## 3. NATURE OF THE PLATFORM AND BUSINESS RELATIONSHIP
+
+3.1 Patna operates as an intermediary platform that helps customers discover and connect with independent merchants and service providers.
+
+3.2 The Merchant participates on Patna as an independent business and is not an employee, partner, joint venture participant or general agent of Patnacom Services.
+
+3.3 The Merchant remains responsible for its business operations, products, services, pricing, customer transactions, fulfilment and legal obligations.
+
+3.4 Patna facilitates discovery, enquiries, quotations, communication and booking coordination. Unless expressly agreed otherwise, Patna does not purchase, own, resell or supply the Merchant's goods or services.
+
+3.5 Nothing in this Agreement excludes any legal responsibilities Patna has for its own acts, omissions, representations or obligations under applicable law.
+
+## 4. MERCHANT REGISTRATION AND ONBOARDING
+
+4.1 The Merchant must provide accurate and complete registration information, including:
+
+- Registered or trading business name.
+- Business address and operating location.
+- Contact person's name and contact details.
+- Telephone number and email address.
+- Description of the business and its activities.
+- Products or services offered.
+- Applicable business registration, licence or permit details where required.
+
+4.2 Patna may request supporting documents or additional information to verify the Merchant's identity, business operations or authority to offer particular goods and services.
+
+4.3 The Merchant authorises Patna to use the submitted business information for onboarding, verification, platform operations and customer discovery.
+
+4.4 The Merchant must promptly notify Patna of material changes to its business information, contact details, ownership, licences or operating status.
+
+4.5 Patna may decline an application where the information supplied is incomplete, misleading or inconsistent with platform requirements or applicable law.
+
+## 5. SUBSCRIPTION AND LISTING FEES
+
+5.1 Patna may charge Merchants subscription, listing or other agreed commercial fees for participation on the platform.
+
+5.2 The applicable subscription plan, fee, billing period and payment arrangements will be communicated to the Merchant before subscription or renewal.
+
+5.3 The Merchant agrees to pay the applicable fees in accordance with the selected plan and agreed payment schedule.
+
+5.4 Unless otherwise stated in the applicable subscription terms:
+
+- Subscription fees are payable in advance.
+- The Merchant is responsible for ensuring timely payment.
+- Access to paid features may depend on the Merchant's subscription status.
+- Failure to pay may result in suspension or restriction of listing visibility or merchant access.
+
+5.5 Patna may revise its subscription plans and fees by providing reasonable notice to affected Merchants.
+
+5.6 Where a fee change affects an existing subscription, the revised fee will apply from the next applicable billing period unless otherwise agreed or required by law.
+
+5.7 Subscription fees do not guarantee a minimum number of enquiries, bookings, customers, sales or revenue.
+
+5.8 Refunds, cancellations and early termination of subscriptions will be governed by the applicable subscription terms and any mandatory rights under Tanzanian law.
+
+## 6. BUSINESS LISTINGS AND INFORMATION
+
+6.1 The Merchant is responsible for ensuring that all information submitted for publication on Patna is accurate, complete and current.
+
+6.2 This includes:
+
+- Business name and description.
+- Product and service descriptions.
+- Prices and applicable charges.
+- Product images and other promotional materials.
+- Stock levels and availability.
+- Operating hours.
+- Delivery areas and service locations.
+- Contact and business information.
+- Applicable licences, certifications and warranties.
+
+6.3 The Merchant must not publish false, misleading, deceptive or unauthorised information.
+
+6.4 The Merchant must promptly update or correct inaccurate or outdated listings.
+
+6.5 Patna may review, edit for presentation, reject, restrict or remove listings that violate this Agreement, platform standards or applicable law.
+
+## 7. PRICING AND QUOTATIONS
+
+7.1 The Merchant is responsible for setting the prices of its goods and services.
+
+7.2 All quotations provided through Patna must be honest, accurate and based on the Merchant's actual offer.
+
+7.3 The Merchant must clearly disclose relevant charges, including:
+
+- Product or service prices.
+- Delivery and transport fees.
+- Installation or handling charges.
+- Applicable taxes.
+- Additional service charges.
+- Any conditions that may affect the final price.
+
+7.4 The Merchant must not use misleading prices or advertise offers that it does not intend or is unable to honour.
+
+7.5 Where a quotation has a validity period, the Merchant should clearly communicate that period to the Customer.
+
+7.6 If a quotation needs to change, the Merchant must communicate the revised terms before the Customer accepts the offer.
+
+7.7 A quotation does not automatically constitute a confirmed booking or completed transaction.
+
+## 8. CUSTOMER ENQUIRIES AND COMMUNICATION
+
+8.1 Patna may forward relevant customer enquiries to the Merchant to enable the Merchant to respond with information, availability or quotations.
+
+8.2 During the quotation stage, Patna may mask or withhold the Customer's direct telephone number or other identifying contact details.
+
+8.3 The Merchant agrees not to attempt to identify, contact or obtain a Customer's masked contact details through unauthorised means.
+
+8.4 Customer contact information may be exchanged through Patna where necessary for a confirmed booking, purchase or fulfilment arrangement, subject to the Customer's applicable permissions and data protection requirements.
+
+8.5 The Merchant must:
+
+- Respond to enquiries professionally and within a reasonable time.
+- Provide accurate information.
+- Avoid misleading or aggressive sales practices.
+- Respect customer privacy.
+- Use customer information only for the relevant enquiry or transaction.
+- Avoid sending unrelated promotional messages without an appropriate legal basis and any required consent.
+
+8.6 The Merchant must not misuse Patna's communication channels to spam, harass or deceive Customers.
+
+## 9. BOOKING CONFIRMATION
+
+9.1 Patna may facilitate booking requests and confirmations between Customers and Merchants.
+
+9.2 A booking is considered confirmed only when both the Customer and Merchant have expressly confirmed the agreed arrangement.
+
+9.3 The parties should agree on all material details, including where applicable:
+
+- Goods or services being supplied.
+- Quantity or scope of work.
+- Final price.
+- Delivery or service location.
+- Date and time.
+- Payment arrangements.
+- Cancellation conditions.
+- Any additional requirements.
+
+9.4 The Merchant must not represent a preliminary enquiry, quotation or unaccepted offer as a confirmed booking.
+
+9.5 The Merchant must honour confirmed bookings unless a legitimate reason prevents fulfilment, in which case the Merchant must promptly notify the Customer and Patna.
+
+9.6 The Merchant must not unilaterally change material booking conditions without informing the Customer and obtaining agreement where required.
+
+## 10. CUSTOMER PAYMENTS
+
+10.1 Under Patna's current business model, Customers pay Merchants directly for goods and services.
+
+10.2 Patna does not ordinarily collect, hold or process Customer purchase payments on behalf of Merchants.
+
+10.3 The Merchant is responsible for:
+
+- Communicating accepted payment methods.
+- Providing accurate payment instructions.
+- Confirming receipt of payments.
+- Issuing receipts or other required transaction records.
+- Meeting applicable tax and financial reporting obligations.
+- Handling refunds and payment-related complaints.
+
+10.4 The Merchant must not falsely claim that Patna has received or guaranteed a payment where this has not occurred.
+
+10.5 Any future arrangement under which Patna collects or processes customer payments will be subject to separate terms and applicable legal requirements.
+
+## 11. DELIVERY AND FULFILMENT
+
+11.1 The Merchant is solely responsible for fulfilling its confirmed customer transactions.
+
+11.2 The Merchant must:
+
+- Supply the agreed goods or services.
+- Meet agreed delivery or completion timelines.
+- Ensure that products are authentic, safe and fit for their represented purpose.
+- Perform services with reasonable care and professional competence.
+- Communicate delays or changes promptly.
+- Provide applicable warranties, guarantees and after-sales support.
+- Comply with applicable consumer protection requirements.
+
+11.3 The Merchant must not accept bookings where it knows or reasonably should know that it cannot fulfil them.
+
+11.4 Any delivery, transport, installation or additional service charges must be disclosed and agreed before the transaction is confirmed.
+
+11.5 Where the Merchant cannot fulfil a confirmed booking, it must promptly communicate with the Customer and cooperate in identifying an appropriate solution.
+
+## 12. CANCELLATIONS AND REFUNDS
+
+12.1 The Merchant must clearly communicate applicable cancellation conditions before a Customer confirms a transaction.
+
+12.2 The Merchant is responsible for handling cancellations and refunds relating to payments received directly by the Merchant.
+
+12.3 Refunds must be handled in accordance with the parties' agreement and applicable Tanzanian law.
+
+12.4 The Merchant must not impose unlawful or misleading cancellation conditions.
+
+12.5 Where a Merchant cancels a confirmed booking or cannot fulfil an order, it must promptly inform the Customer and explain the available options.
+
+12.6 Patna may assist in communicating cancellation requests and facilitating discussions concerning refunds or other remedies.
+
+12.7 Nothing in this Agreement removes or limits mandatory consumer rights.
+
+## 13. CUSTOMER COMPLAINTS AND DISPUTE MEDIATION
+
+13.1 Patna aims to provide a fair process for addressing complaints involving Merchants participating on the platform.
+
+13.2 Customers may raise complaints concerning matters such as:
+
+- Failure to honour confirmed bookings.
+- Misleading product or service descriptions.
+- Disagreements over agreed pricing.
+- Failure to deliver goods or services.
+- Poor or incomplete service fulfilment.
+- Unauthorised changes to agreed arrangements.
+- Unprofessional or abusive conduct.
+
+13.3 Patna may actively mediate disputes between Customers and Merchants.
+
+13.4 The Merchant agrees to cooperate reasonably with Patna's complaint and mediation process, including by:
+
+- Responding to complaints within a reasonable time.
+- Providing relevant explanations and supporting evidence.
+- Participating in discussions where requested.
+- Considering reasonable proposed solutions.
+- Communicating directly and professionally with the Customer where appropriate.
+
+13.5 Patna may review available communications, quotations, booking records and other relevant information when assessing a complaint.
+
+13.6 Patna may facilitate proposed solutions, including a refund, replacement, re-performance of a service, revised delivery arrangement or other mutually acceptable outcome.
+
+13.7 A proposed settlement is binding on the parties only where they accept it or it otherwise becomes legally binding under applicable law.
+
+13.8 Patna does not guarantee that every dispute will be resolved through mediation and does not automatically act as a court, arbitrator or refund authority.
+
+13.9 Patna may take separate platform enforcement action where a Merchant breaches this Agreement, even if the underlying customer dispute remains unresolved.
+
+13.10 Nothing in this section prevents a Customer or Merchant from pursuing remedies available under applicable law.
+
+## 14. LEGAL AND REGULATORY COMPLIANCE
+
+14.1 The Merchant must comply with all applicable laws and regulations of the United Republic of Tanzania.
+
+14.2 Depending on the Merchant's business activities, these obligations may include:
+
+- Business registration and licensing.
+- Tax registration and payment.
+- Consumer protection requirements.
+- Product safety and quality standards.
+- Food, health and hygiene requirements.
+- Transport and professional service regulations.
+- Intellectual property rights.
+- Advertising and marketing requirements.
+- Personal data protection requirements.
+- Applicable trade and commercial laws.
+
+14.3 The Merchant must obtain and maintain all licences, permits, registrations and approvals required for its business.
+
+14.4 The Merchant must not offer counterfeit, stolen, prohibited, unsafe or unlawful goods or services through Patna.
+
+14.5 The Merchant must promptly notify Patna if a licence or authorisation necessary for its listed activities expires, is suspended or is revoked.
+
+14.6 Patna may request evidence of compliance where reasonably necessary.
+
+## 15. PERSONAL DATA AND PRIVACY
+
+15.1 The Merchant must handle Customer personal information lawfully and responsibly.
+
+15.2 Personal information obtained through Patna may only be used for legitimate purposes connected with responding to enquiries, providing quotations, fulfilling bookings or meeting applicable legal obligations.
+
+15.3 The Merchant must not:
+
+- Sell or unlawfully disclose Customer information.
+- Use Customer information for unrelated marketing without an appropriate legal basis and any required consent.
+- Share Customer information with unauthorised persons.
+- Attempt to bypass Patna's contact-masking arrangements.
+- Retain personal information longer than reasonably necessary or legally permitted.
+- Use personal information in a manner inconsistent with applicable data protection requirements.
+
+15.4 The Merchant must implement reasonable technical and organisational measures to protect Customer information against unauthorised access, loss, misuse, alteration or disclosure.
+
+15.5 The Merchant must promptly notify Patna of any suspected or confirmed personal data breach involving information obtained through the platform, without undue delay.
+
+15.6 Depending on the actual processing activities, Patna and the Merchant may act as separate data controllers or have other data protection roles under applicable law.
+
+15.7 Where required, the parties will enter into additional data processing or data-sharing arrangements setting out their respective responsibilities.
+
+15.8 The Merchant must comply with applicable Tanzanian data protection laws and any relevant privacy requirements communicated by Patna.
+
+## 16. INTELLECTUAL PROPERTY AND MERCHANT CONTENT
+
+16.1 The Merchant retains ownership of its business name, trademarks, logos, product images, descriptions and other intellectual property submitted to Patna.
+
+16.2 The Merchant grants Patna a non-exclusive, royalty-free permission to use, display, reproduce and distribute submitted materials for the purposes of:
+
+- Creating and maintaining Merchant listings.
+- Displaying products and services to Customers.
+- Providing search and recommendation services.
+- Responding to customer enquiries.
+- Promoting Patna and participating Merchants through authorised platform channels.
+
+16.3 The Merchant confirms that it owns or has permission to use the materials it submits.
+
+16.4 The Merchant must not submit content that infringes another person's intellectual property rights.
+
+16.5 Patna retains ownership of its own software, platform, branding, logos, designs, systems and original materials.
+
+16.6 The Merchant must not use Patna's branding or intellectual property outside the scope authorised by Patna.
+
+## 17. CONFIDENTIALITY
+
+17.1 Each party may receive confidential business, technical, operational or commercial information from the other party.
+
+17.2 The receiving party must protect such information and use it only for purposes connected with this Agreement.
+
+17.3 Confidential information must not be disclosed to unauthorised third parties without permission, except where disclosure is required by law or a competent authority.
+
+17.4 These obligations do not apply to information that is lawfully public or was independently obtained without a confidentiality obligation.
+
+## 18. PLATFORM STANDARDS AND MONITORING
+
+18.1 Patna may establish reasonable standards for Merchant conduct, listing quality, customer communication and platform participation.
+
+18.2 Patna may monitor listings, customer feedback, transaction-related complaints and Merchant activity for compliance with this Agreement.
+
+18.3 Patna may request corrections or additional information where a listing or Merchant activity raises concerns.
+
+18.4 The Merchant agrees to cooperate reasonably with platform reviews and compliance requests.
+
+18.5 Patna may introduce additional platform policies from time to time, provided that material changes are communicated appropriately.
+
+## 19. SUSPENSION AND REMOVAL
+
+19.1 Patna may suspend, restrict or remove a Merchant's access or listings where reasonably necessary, including where:
+
+- The Merchant materially breaches this Agreement.
+- The Merchant provides false or misleading information.
+- The Merchant engages in fraud or unlawful conduct.
+- The Merchant repeatedly fails to honour confirmed bookings.
+- The Merchant misuses Customer personal information.
+- The Merchant advertises prohibited or unlawful goods or services.
+- The Merchant repeatedly fails to respond to legitimate complaints.
+- The Merchant fails to pay applicable subscription fees.
+- Continued participation creates a legal, security or operational risk.
+
+19.2 Where appropriate, Patna may provide notice and an opportunity to correct the issue before suspension or removal.
+
+19.3 Patna may take immediate action where reasonably necessary to address serious legal, security, fraud or customer protection risks.
+
+19.4 Suspension or removal does not automatically cancel obligations arising from transactions already confirmed between the Merchant and Customers.
+
+## 20. TERM AND TERMINATION
+
+20.1 This Agreement begins on the Effective Date or the date the Merchant accepts it, whichever is applicable.
+
+20.2 The Agreement continues until terminated by either party in accordance with this section.
+
+20.3 The Merchant may request termination by notifying Patna through the designated communication channel, subject to any applicable subscription commitments.
+
+20.4 Patna may terminate this Agreement by giving reasonable notice or immediately where serious misconduct, unlawful activity or material breach justifies termination.
+
+20.5 Upon termination:
+
+- The Merchant's listings may be removed or deactivated.
+- Access to paid merchant features may end.
+- Outstanding fees may become payable in accordance with the agreed subscription terms.
+- The Merchant must stop representing itself as an active Patna participant.
+- The parties remain responsible for obligations that arose before termination.
+
+20.6 Provisions concerning confidentiality, personal data, intellectual property, outstanding payments, liability and dispute resolution will survive termination to the extent necessary or required by law.
+
+## 21. MERCHANT REPRESENTATIONS AND WARRANTIES
+
+The Merchant represents and warrants that:
+
+21.1 It is legally entitled to operate the business and offer the listed goods or services.
+
+21.2 All information supplied to Patna is accurate and not misleading.
+
+21.3 It holds the licences and authorisations required for its activities.
+
+21.4 It will comply with applicable laws and regulations.
+
+21.5 It will honour its confirmed customer transactions, subject to lawful cancellation and other agreed conditions.
+
+21.6 It has the right to submit the content and materials it provides to Patna.
+
+21.7 It will handle Customer information in accordance with applicable data protection requirements.
+
+21.8 It will not use Patna to facilitate fraud, unlawful activity or prohibited transactions.
+
+## 22. LIABILITY AND INDEMNIFICATION
+
+22.1 Each party remains responsible for its own acts, omissions and obligations under applicable law.
+
+22.2 The Merchant is responsible for claims, losses or liabilities arising from its own products, services, business operations, misleading representations, failure to fulfil transactions or breach of applicable law.
+
+22.3 To the extent permitted by law, the Merchant agrees to indemnify Patnacom Services against third-party claims, losses, liabilities and reasonable costs directly arising from the Merchant's:
+
+- Fraud or unlawful conduct.
+- Material breach of this Agreement.
+- Infringement of third-party rights.
+- Negligent or wrongful business operations.
+- Failure to comply with applicable legal requirements.
+
+22.4 Patna is not responsible for the independent business operations, product quality, pricing or fulfilment decisions of Merchants.
+
+22.5 Nothing in this Agreement excludes or limits liability where such exclusion or limitation is prohibited by applicable law, including liability arising from a party's own unlawful conduct or mandatory statutory obligations.
+
+## 23. CHANGES TO THIS AGREEMENT
+
+23.1 Patna may update this Agreement to reflect changes in its services, business model, platform requirements, subscription arrangements or applicable laws.
+
+23.2 Updated terms will be communicated or made available through appropriate channels.
+
+23.3 Where a change materially affects the Merchant's rights or obligations, Patna will take reasonable steps to provide advance notice.
+
+23.4 Where required by law or the nature of the change, the Merchant's further acceptance will be obtained before the change takes effect.
+
+## 24. DISPUTES BETWEEN PATNA AND THE MERCHANT
+
+24.1 The parties will first attempt to resolve disputes arising from this Agreement through good-faith discussions.
+
+24.2 Either party may submit a written notice describing the dispute and the outcome sought.
+
+24.3 If the dispute cannot be resolved through discussions, either party may pursue remedies available through the competent courts or relevant authorities in Tanzania.
+
+24.4 Nothing in this section prevents either party from seeking urgent legal relief where necessary.
+
+## 25. GOVERNING LAW
+
+This Agreement is governed by and construed in accordance with the applicable laws of the United Republic of Tanzania.
+
+The parties submit to the jurisdiction of the competent courts of Tanzania, subject to any mandatory legal requirements.
+
+## 26. GENERAL PROVISIONS
+
+**26.1 Entire Agreement**
+
+This Agreement and its schedules constitute the agreement between Patna and the Merchant concerning participation on the platform, subject to any separately agreed terms.
+
+**26.2 Severability**
+
+If any provision is found to be invalid or unenforceable, the remaining provisions will continue to apply to the extent permitted by law.
+
+**26.3 No Waiver**
+
+Failure to enforce a provision does not constitute a waiver of the right to enforce it later.
+
+**26.4 Assignment**
+
+The Merchant may not transfer its rights or obligations under this Agreement without Patna's prior written approval, except where permitted by law.
+
+**26.5 Independent Parties**
+
+Nothing in this Agreement creates an employment relationship, partnership, joint venture or general agency relationship between the parties.
+
+**26.6 Notices**
+
+Formal notices under this Agreement may be sent to the contact details supplied by each party during registration or subsequently updated in writing.
+
+---
+
+
+DECLARATION AND ACCEPTANCE
+
+By signing below or accepting this Agreement through an authorised electronic process, the parties confirm that:
+
+1. They have read and understood this Agreement.
+2. They agree to comply with its terms.
+3. The information provided by the Merchant is accurate to the best of its knowledge.
+4. The Merchant is authorised to enter into this Agreement.
+5. The Merchant understands that it operates independently from Patna.
+6. The Merchant understands the applicable subscription and listing fees recorded in Schedule 2.
+
+
+---
+
+**END OF AGREEMENT**
