@@ -15,10 +15,10 @@ import {
   Truck,
   Phone,
   Mail,
-  FileText,
   Instagram,
   Facebook,
   Clock4,
+  MessageCircle,
 } from 'lucide-react';
 
 import { PATNA_CONFIG, getWhatsAppUrl } from './config/patnaConfig';
@@ -26,7 +26,6 @@ import { translations, Language } from './i18n/translations';
 import { Navbar } from './components/Navbar';
 import { MultiChannelSimulator } from './components/MultiChannelSimulator';
 import { FaqAccordion } from './components/FaqAccordion';
-import { PlaceholdersModal } from './components/PlaceholdersModal';
 import { LegalModal } from './components/LegalModal';
 import { CookieBanner } from './components/CookieBanner';
 import { NotFoundPage } from './components/NotFoundPage';
@@ -38,7 +37,6 @@ export default function App() {
   );
   const [lang, setLang] = useState<Language>('en');
   const [isDark, setIsDark] = useState<boolean>(false);
-  const [placeholdersModalOpen, setPlaceholdersModalOpen] = useState<boolean>(false);
   const [legalModalType, setLegalModalType] = useState<'privacy' | 'terms' | 'merchant' | 'about' | null>(null);
   const { isAccepted, acceptTerms } = useTermsConsent();
   const { isMerchantAccepted, acceptMerchantAgreement } = useMerchantConsent();
@@ -721,15 +719,6 @@ export default function App() {
                     {t.footer.terms}
                   </button>
                 </li>
-                <li>
-                  <button
-                    onClick={() => setPlaceholdersModalOpen(true)}
-                    className="hover:text-[#2541b2] dark:hover:text-[#5B7CF6] text-xs font-mono text-left underline underline-offset-2 flex items-center gap-1"
-                  >
-                    <FileText className="w-3 h-3" />
-                    <span>{t.footer.placeholdersTrigger}</span>
-                  </button>
-                </li>
               </ul>
             </div>
 
@@ -740,18 +729,18 @@ export default function App() {
               </span>
               <div className="space-y-2.5 text-xs">
                 <a
-                  href={`mailto:${PATNA_CONFIG.contactEmail}`}
-                  className="flex items-center gap-2 hover:text-[#2541b2] dark:hover:text-[#5B7CF6] transition-colors"
-                >
-                  <Mail className="w-3.5 h-3.5 text-neutral-400" />
-                  <span>{PATNA_CONFIG.contactEmail}</span>
-                </a>
-                <a
                   href={`mailto:${PATNA_CONFIG.infoEmail}`}
                   className="flex items-center gap-2 hover:text-[#2541b2] dark:hover:text-[#5B7CF6] transition-colors"
                 >
                   <Mail className="w-3.5 h-3.5 text-neutral-400" />
                   <span>{PATNA_CONFIG.infoEmail}</span>
+                </a>
+                <a
+                  href={`mailto:${PATNA_CONFIG.businessEmail}`}
+                  className="flex items-center gap-2 hover:text-[#2541b2] dark:hover:text-[#5B7CF6] transition-colors"
+                >
+                  <Mail className="w-3.5 h-3.5 text-neutral-400" />
+                  <span>{PATNA_CONFIG.businessEmail}</span>
                 </a>
                 <a
                   href={getWhatsAppUrl('Hi Patna, I have a general question')}
@@ -773,6 +762,16 @@ export default function App() {
                     {t.footer.socialTitle}
                   </span>
                   <div className="flex items-center gap-2">
+                    <a
+                      href={PATNA_CONFIG.whatsappSocialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-lg border hairline-border bg-neutral-50 dark:bg-[#161918] text-[#5B615E] dark:text-[#9BA19E] hover:text-[#2541b2] dark:hover:text-[#5B7CF6] hover:border-[#2541b2]/40 hover:bg-neutral-100 dark:hover:bg-[#1D211F] transition-all"
+                      title="WhatsApp"
+                      aria-label="Patna on WhatsApp"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                    </a>
                     <a
                       href={PATNA_CONFIG.instagramUrl}
                       target="_blank"
@@ -806,12 +805,6 @@ export default function App() {
           </div>
         </div>
       </footer>
-
-      {/* Placeholders Handover Modal */}
-      <PlaceholdersModal
-        isOpen={placeholdersModalOpen}
-        onClose={() => setPlaceholdersModalOpen(false)}
-      />
 
       {/* Legal Terms / Privacy Modal */}
       <LegalModal

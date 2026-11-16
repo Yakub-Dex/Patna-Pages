@@ -174,7 +174,6 @@ export interface TranslationDictionary {
     aboutUs: string;
     privacy: string;
     terms: string;
-    placeholdersTrigger: string;
   };
 }
 
@@ -662,7 +661,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       ctaPrimary: 'Start now',
       ctaSecondary: 'Join as a Provider',
       qrNote: 'Scan with your phone camera or click to open WhatsApp directly.',
-      numberNotice: 'Official WhatsApp & SMS Line: +255 700 000 000',
+      numberNotice: 'Official WhatsApp & SMS Line: +255 683 007005',
     },
     footer: {
       company: 'Patnacom Services. A Service Company',
@@ -676,7 +675,6 @@ export const translations: Record<Language, TranslationDictionary> = {
       aboutUs: 'About Us',
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',
-      placeholdersTrigger: 'Config & Placeholders Checklist',
     },
   },
   sw: {
@@ -1162,7 +1160,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       ctaPrimary: 'Anza sasa',
       ctaSecondary: 'Jiunge kama Mfanyabiashara',
       qrNote: 'Changanua QR kwa kamera ya simu au bonyeza kufungua WhatsApp mara moja.',
-      numberNotice: 'Namba Rasmi ya WhatsApp na SMS: +255 700 000 000',
+      numberNotice: 'Namba Rasmi ya WhatsApp na SMS: +255 683 007005',
     },
     footer: {
       company: 'Patnacom Services. A Service Company',
@@ -1176,7 +1174,6 @@ export const translations: Record<Language, TranslationDictionary> = {
       aboutUs: 'Kuhusu Sisi',
       privacy: 'Sera ya Faragha',
       terms: 'Vigezo na Masharti',
-      placeholdersTrigger: 'Orodha ya Taarifa za Kubadilisha',
     },
   },
 };
