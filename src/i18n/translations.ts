@@ -2,14 +2,10 @@ export type Language = 'en' | 'sw';
 
 export interface TranslationDictionary {
   nav: {
-    byLine: string;
     howItWorks: string;
     categories: string;
     audiences: string;
     forBusinesses: string;
-    faq: string;
-    startWhatsApp: string;
-    switchLang: string;
   };
   hero: {
     headlineStart: string;
@@ -19,31 +15,19 @@ export interface TranslationDictionary {
     ctaBusiness: string;
     channelsLabel: string;
     channelsList: string[];
-    sampleQueriesLabel: string;
-    verifiedProvidersBadge: string;
-    responseSpeedBadge: string;
-    channelSelectorLabel: string;
   };
   simulation: {
-    statusOnline: string;
     patnaTyping: string;
-    channelWhatsapp: string;
-    channelSms: string;
     tabWhatsapp: string;
     tabSms: string;
     offersFound: string;
     bestMatchBadge: string;
     selectOfferBtn: string;
-    enquiryCardTitle: string;
-    extractedDetails: string;
-    verifiedProvider: string;
-    currency: string;
     step1Label: string;
     step2Label: string;
     step3Label: string;
     step4Label: string;
     replayBtn: string;
-    nextStepBtn: string;
     ackMessageWhatsapp: string;
     ackMessageSms: string;
     confirmedBubbleText: string;
@@ -92,7 +76,6 @@ export interface TranslationDictionary {
       name: string;
       badge: string;
       description: string;
-      idealFor: string;
       icon: string;
     }>;
   };
@@ -105,7 +88,6 @@ export interface TranslationDictionary {
       title: string;
       description: string;
       example: string;
-      subcategories: string[];
       isComingSoon?: boolean;
     }>;
   };
@@ -139,11 +121,6 @@ export interface TranslationDictionary {
       description: string;
     }>;
     providerCta: string;
-    pricingNote: string;
-    statsStrip: Array<{
-      label: string;
-      value: string;
-    }>;
   };
   faq: {
     sectionTag: string;
@@ -154,20 +131,8 @@ export interface TranslationDictionary {
       a: string;
     }>;
   };
-  finalCta: {
-    title: string;
-    subtitle: string;
-    ctaPrimary: string;
-    ctaSecondary: string;
-    qrNote: string;
-    numberNotice: string;
-  };
   footer: {
-    company: string;
-    headquarters: string;
     rightsReserved: string;
-    tagline: string;
-    linksTitle: string;
     legalTitle: string;
     contactTitle: string;
     socialTitle: string;
@@ -180,14 +145,10 @@ export interface TranslationDictionary {
 export const translations: Record<Language, TranslationDictionary> = {
   en: {
     nav: {
-      byLine: 'by Patnacom Services',
       howItWorks: 'How it works',
       categories: 'What you can search',
       audiences: 'Who it serves',
       forBusinesses: 'For businesses',
-      faq: 'FAQ',
-      startWhatsApp: 'Start now',
-      switchLang: 'Kiswahili',
     },
     hero: {
       headlineStart: 'Your Huduma Moja Desk. ',
@@ -198,31 +159,19 @@ export const translations: Record<Language, TranslationDictionary> = {
       ctaBusiness: 'List your business',
       channelsLabel: 'Coming soon',
       channelsList: ['Web and App'],
-      sampleQueriesLabel: 'Try a real Tanzanian enquiry:',
-      verifiedProvidersBadge: 'Local Tanzanian Providers',
-      responseSpeedBadge: 'Offers within minutes',
-      channelSelectorLabel: 'Preview Mode',
     },
     simulation: {
-      statusOnline: 'online · verified service',
       patnaTyping: 'Patna is matching verified local providers...',
-      channelWhatsapp: 'WhatsApp Business',
-      channelSms: 'SMS',
       tabWhatsapp: 'WhatsApp View',
       tabSms: 'SMS View',
       offersFound: '3 matched offers found for your request',
       bestMatchBadge: 'Top Match',
       selectOfferBtn: 'Confirm with Provider',
-      enquiryCardTitle: 'Structured Enquiry Generated',
-      extractedDetails: 'Understood parameters',
-      verifiedProvider: 'Verified Tanzanian Merchant',
-      currency: 'TZS',
       step1Label: 'Send Request',
       step2Label: 'Patna Matches',
       step3Label: 'Offers Arrive',
       step4Label: 'Direct Connect',
       replayBtn: 'Replay',
-      nextStepBtn: 'Next Step',
       ackMessageWhatsapp: 'Habari! Request received. Patna is matching with verified Tanzanian providers right now... ⚡',
       ackMessageSms: 'PATNA: Request received. Matching with verified local providers. Stand by for offers.',
       confirmedBubbleText: 'Confirming offer with provider',
@@ -443,28 +392,24 @@ export const translations: Record<Language, TranslationDictionary> = {
           name: 'WhatsApp',
           badge: '',
           description: 'The easiest way to search. Chat directly with Patna in natural language, receive photo offers, and confirm bookings in one thread.',
-          idealFor: 'Everyday consumers, smartphone users, and local merchants',
           icon: 'MessageSquare',
         },
         {
           name: 'SMS',
           badge: '',
           description: 'Works with zero data bundle or smartphone. Send a text from any feature phone (kitochi) and receive parsed provider offers via SMS.',
-          idealFor: 'Regional towns, travel on the road, and feature-phone users',
           icon: 'Smartphone',
         },
         {
           name: 'Web App',
           badge: 'Coming Soon',
           description: 'A lightning-fast browser interface for desktop and laptop users researching bulk orders, corporate travel, or complex procurement.',
-          idealFor: 'Offices, administrative buyers, and business managers',
           icon: 'Globe',
         },
         {
           name: 'App',
           badge: 'Coming Soon',
           description: 'A native companion app with push status notifications, saved recurring enquiries, and multi-business lead tracking.',
-          idealFor: 'High-frequency traders, logistics dispatchers, and fleet owners',
           icon: 'AppWindow',
         },
       ],
@@ -479,42 +424,36 @@ export const translations: Record<Language, TranslationDictionary> = {
           title: 'Consumer Goods',
           description: 'Phones. Laptops. Spare parts. Beauty Products. Hardware. Building Materials and Home appliances',
           example: '“Natafuta simu ya samsung nina budget ya 500,000”',
-          subcategories: [],
         },
         {
           id: 'buses',
           title: 'Tickets',
           description: 'Buses connecting Dar, Arusha, Mwanza, Dodoma, Mbeya and all regions, plus flight routes from air service providers such as Air Tanzania, Flightlink, Precision Air and others.',
           example: '“Ndege Dar to Mwanza Ijumaa hii” or “Bus Dar to Dodoma kesho asubuhi seat ya dirishani”',
-          subcategories: [],
         },
         {
           id: 'hotels',
           title: 'Hospitality',
           description: "Verified accomodation from City lodges, Hotels, BnB's to Luxury Safari suites",
           example: '“Chumba safi cha hoteli Dodoma mjini under 80,000 kuanzia kesho”',
-          subcategories: [],
         },
         {
           id: 'food',
           title: 'Food Services',
           description: 'Office Lunch Deliveries. Event & Corporate catering. Nyama Choma.',
           example: '“Chakula cha mchana ofisini Posta watu 6, pilau kuku na juisi fresh”',
-          subcategories: [],
         },
         {
           id: 'logistics',
           title: 'Delivery Services',
           description: 'Instant Delivery via Boda, Bajaj, 3 Wheeler Guta, Van or Heavy Truck',
           example: '“Guta la kubeba mifuko 20 ya saruji toka Ilala kwenda Tabata leo”',
-          subcategories: [],
         },
         {
           id: 'jobs',
           title: 'Jobs',
           description: 'Certified Electricians. Plumbers. retail and Shop Assistants. Drivers. Maids',
           example: '“Fundi umeme anayejua solar panel wiring pande za Kinondoni kesho”',
-          subcategories: [],
           isComingSoon: true,
         },
       ],
@@ -612,13 +551,6 @@ export const translations: Record<Language, TranslationDictionary> = {
         },
       ],
       providerCta: 'Join as a Provider Now',
-      pricingNote: 'Fair micro-fee per lead · No subscription traps · Easy MPesa / TigoPesa / Airtel Money top-ups',
-      statsStrip: [
-        { label: 'Merchant Onboarding Time', value: '< 5 Mins' },
-        { label: 'Customer Lead Intent', value: 'High' },
-        { label: 'Software Requirements', value: 'WhatsApp Only' },
-        { label: 'Coverage', value: 'Tanzania-Wide' },
-      ],
     },
     faq: {
       sectionTag: 'Frequently Asked Questions',
@@ -655,20 +587,8 @@ export const translations: Record<Language, TranslationDictionary> = {
         },
       ],
     },
-    finalCta: {
-      title: 'Find whatever you need in Tanzania today.',
-      subtitle: 'Experience the fastest way to buy, book, or transport without leaving your chat app.',
-      ctaPrimary: 'Start now',
-      ctaSecondary: 'Join as a Provider',
-      qrNote: 'Scan with your phone camera or click to open WhatsApp directly.',
-      numberNotice: 'Official WhatsApp & SMS Line: +255 683 007005',
-    },
     footer: {
-      company: 'Patnacom Services. A Service Company',
-      headquarters: 'Dar es Salaam, Tanzania',
       rightsReserved: 'All rights reserved.',
-      tagline: 'WhatsApp & Multi-Channel Search & Recommendation Service for Tanzania.',
-      linksTitle: 'Navigation',
       legalTitle: 'Legal & Compliance',
       contactTitle: 'Contact Us',
       socialTitle: 'Follow Us',
@@ -679,14 +599,10 @@ export const translations: Record<Language, TranslationDictionary> = {
   },
   sw: {
     nav: {
-      byLine: 'huduma ya Patnacom Services',
       howItWorks: 'Jinsi inavyofanya kazi',
       categories: 'Unachoweza kutafuta',
       audiences: 'Wanaohudumiwa',
       forBusinesses: 'Kwa wafanyabiashara',
-      faq: 'Maswali ya kawaida',
-      startWhatsApp: 'Anza sasa',
-      switchLang: 'English',
     },
     hero: {
       headlineStart: 'Dawati Lako la Huduma Moja. ',
@@ -697,31 +613,19 @@ export const translations: Record<Language, TranslationDictionary> = {
       ctaBusiness: 'Sajili biashara yako',
       channelsLabel: 'Inakuja hivi karibuni',
       channelsList: ['Tovuti na App'],
-      sampleQueriesLabel: 'Jaribu maombi halisi ya Kitanzania:',
-      verifiedProvidersBadge: 'Watoa Huduma Walioidhinishwa',
-      responseSpeedBadge: 'Majibu ndani ya dakika chache',
-      channelSelectorLabel: 'Mwonekano',
     },
     simulation: {
-      statusOnline: 'mtandaoni · huduma iliyoidhinishwa',
       patnaTyping: 'Patna inatafuta watoa huduma wa karibu...',
-      channelWhatsapp: 'WhatsApp Business',
-      channelSms: 'SMS',
       tabWhatsapp: 'Mwonekano wa WhatsApp',
       tabSms: 'Mwonekano wa SMS',
       offersFound: 'Ofa 3 zimepatikana kulingana na ombi lako',
       bestMatchBadge: 'Chaguo Bora Zaidi',
       selectOfferBtn: 'Thibitisha na Muuzaji',
-      enquiryCardTitle: 'Ombi Lililopangwa Kikamilifu',
-      extractedDetails: 'Vigezo vilivyoeleweka',
-      verifiedProvider: 'Mfanyabiashara Aliyehakikiwa',
-      currency: 'TZS',
       step1Label: 'Tuma Ombi',
       step2Label: 'Patna Inatafuta',
       step3Label: 'Ofa Zinafika',
       step4Label: 'Unganishwa Moja kwa Moja',
       replayBtn: 'Rudia',
-      nextStepBtn: 'Hatua Inayofuata',
       ackMessageWhatsapp: 'Habari! Ombi lako limepokelewa. Mfumo unatafuta wauzaji waliohakikiwa karibu nawe sasa hivi... ⚡',
       ackMessageSms: 'PATNA: Ombi lako limepokelewa. Tunatafuta wauzaji walio karibu. Subiri ofa ndani ya dakika 2.',
       confirmedBubbleText: 'Ninathibitisha ofa hii na muuzaji',
@@ -942,28 +846,24 @@ export const translations: Record<Language, TranslationDictionary> = {
           name: 'WhatsApp',
           badge: '',
           description: 'Njia rahisi zaidi ya kutafuta. Chati moja kwa moja na Patna kwa maneno ya kawaida, pata picha za bidhaa, na thibitisha ndani ya chat.',
-          idealFor: 'Watumiaji wa simu janja, wanunuzi wa kila siku, na wafanyabiashara',
           icon: 'MessageSquare',
         },
         {
           name: 'SMS',
           badge: '',
           description: 'Inafanya kazi bila bando la intaneti. Tuma ujumbe toka kwenye kitochi chochote na upokee ofa za wauzaji kwa SMS ya kawaida.',
-          idealFor: 'Mikoani, safarini barabarani, na wenye simu za kawaida',
           icon: 'Smartphone',
         },
         {
           name: 'Web App',
           badge: 'Inakuja Hivi Karibuni',
           description: 'Ukurasa wa wavuti wa haraka sana kwa watumiaji wa kompyuta wanaofanya manunuzi makubwa ya kibiashara au maofisini.',
-          idealFor: 'Maofisini, wasimamizi wa manunuzi, na mashirika',
           icon: 'Globe',
         },
         {
           name: 'App',
           badge: 'Inakuja Hivi Karibuni',
           description: 'App maalum yenye taarifa za haraka (push notifications), orodha ya maombi ya mara kwa mara, na ufuatiliaji wa kina.',
-          idealFor: 'Wafanyabiashara wakubwa, wasafirishaji, na wamiliki wa vyombo vya usafiri',
           icon: 'AppWindow',
         },
       ],
@@ -978,42 +878,36 @@ export const translations: Record<Language, TranslationDictionary> = {
           title: 'Consumer Goods',
           description: 'Phones. Laptops. Spare parts. Beauty Products. Hardware. Building Materials and Home appliances',
           example: '“Natafuta simu ya samsung nina budget ya 500,000”',
-          subcategories: [],
         },
         {
           id: 'buses',
           title: 'Tiketi',
           description: 'Mabasi ya safari za kuunganisha Dar, Arusha, Mwanza, Dodoma, Mbeya na mikoa yote, pamoja na safari za ndege toka mashirika kama Air Tanzania, Flightlink, Precision Air na mengineyo.',
           example: '“Tiketi ya ndege Dar kwenda Mwanza” au “Bus Dar to Dodoma kesho asubuhi seat ya dirishani”',
-          subcategories: [],
         },
         {
           id: 'hotels',
           title: 'Hospitality',
           description: "Verified accomodation from City lodges, Hotels, BnB's to Luxury Safari suites",
           example: '“Chumba safi cha hoteli Dodoma mjini under 80,000 kuanzia kesho”',
-          subcategories: [],
         },
         {
           id: 'food',
           title: 'Food Services',
           description: 'Office Lunch Deliveries. Event & Corporate catering. Nyama Choma.',
           example: '“Chakula cha mchana ofisini Posta watu 6, pilau kuku na juisi fresh”',
-          subcategories: [],
         },
         {
           id: 'logistics',
           title: 'Delivery Services',
           description: 'Instant Delivery via Boda, Bajaj, 3 Wheeler Guta, Van or Heavy Truck',
           example: '“Guta la kubeba mifuko 20 ya saruji toka Ilala kwenda Tabata leo”',
-          subcategories: [],
         },
         {
           id: 'jobs',
           title: 'Jobs',
           description: 'Certified Electricians. Plumbers. retail and Shop Assistants. Drivers. Maids',
           example: '“Fundi umeme anayejua solar panel wiring pande za Kinondoni kesho”',
-          subcategories: [],
           isComingSoon: true,
         },
       ],
@@ -1111,13 +1005,6 @@ export const translations: Record<Language, TranslationDictionary> = {
         },
       ],
       providerCta: 'Jiunge kama Mtoa Huduma Sasa',
-      pricingNote: 'Ada ndogo sana kwa kila mteja · Hakuna mkataba mgumu · Lipa kwa urahisi kupitia MPesa / TigoPesa / Airtel Money',
-      statsStrip: [
-        { label: 'Muda wa Kujiunga', value: '< Dk 5' },
-        { label: 'Uhakika wa Mteja', value: 'Wa Juu' },
-        { label: 'Mahitaji ya Programu', value: 'WhatsApp Tu' },
-        { label: 'Upatikanaji', value: 'Tanzania Nzima' },
-      ],
     },
     faq: {
       sectionTag: 'Maswali ya Mara kwa Mara',
@@ -1154,20 +1041,8 @@ export const translations: Record<Language, TranslationDictionary> = {
         },
       ],
     },
-    finalCta: {
-      title: 'Pata chochote unachohitaji nchini Tanzania leo.',
-      subtitle: 'Njia ya haraka na ya kisasa zaidi ya kununua, kukata tiketi, au kusafirisha mzigo bila kuondoka kwenye chat yako.',
-      ctaPrimary: 'Anza sasa',
-      ctaSecondary: 'Jiunge kama Mfanyabiashara',
-      qrNote: 'Changanua QR kwa kamera ya simu au bonyeza kufungua WhatsApp mara moja.',
-      numberNotice: 'Namba Rasmi ya WhatsApp na SMS: +255 683 007005',
-    },
     footer: {
-      company: 'Patnacom Services. A Service Company',
-      headquarters: 'Dar es Salaam, Tanzania',
       rightsReserved: 'Haki zote zimehifadhiwa.',
-      tagline: 'Huduma ya Utafutaji na Mapendekezo kupitia WhatsApp na Njia Mbalimbali nchini Tanzania.',
-      linksTitle: 'Urambazaji',
       legalTitle: 'Sheria na Uzingatiaji',
       contactTitle: 'Wasiliana Nasi',
       socialTitle: 'Tufuate',

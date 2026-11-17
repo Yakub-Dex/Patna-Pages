@@ -12,23 +12,21 @@ import {
   MessageCircle,
   MessageSquare,
 } from 'lucide-react';
-import { TranslationDictionary } from '../i18n/translations';
+import { Language, TranslationDictionary } from '../i18n/translations';
 import { getWhatsAppUrl } from '../config/patnaConfig';
 
 interface MultiChannelSimulatorProps {
   t: TranslationDictionary;
-  activeQueryId?: string;
-  onSelectQuery?: (id: string) => void;
+  lang: Language;
 }
 
 export type SimStep = 0 | 1 | 2 | 3 | 4;
 
 export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
   t,
-  activeQueryId,
-  onSelectQuery,
+  lang,
 }) => {
-  const [selectedId, setSelectedId] = useState<string>(activeQueryId || 'phone');
+  const [selectedId, setSelectedId] = useState<string>('phone');
   const [activeChannel, setActiveChannel] = useState<'whatsapp' | 'sms'>('whatsapp');
   const [step, setStep] = useState<SimStep>(0);
   const [typedLength, setTypedLength] = useState<number>(0);
@@ -39,17 +37,12 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
   const chatScrollRef = useRef<HTMLDivElement>(null);
 
   const currentQuery =
-    t.simulation.queries.find((q) => q.id === selectedId) ||
+    t.simulation.queries.find((q) => q.id === selectedId) ??
     t.simulation.queries[0];
 
-  const selectedOffer = currentQuery.offers[confirmedProviderIndex] || currentQuery.offers[0];
-
-  // Sync with external query changes
-  useEffect(() => {
-    if (activeQueryId && activeQueryId !== selectedId) {
-      handleSwitchQuery(activeQueryId);
-    }
-  }, [activeQueryId]);
+  const userMessage = currentQuery?.userMessage ?? '';
+  const selectedOffer =
+    currentQuery?.offers[confirmedProviderIndex] ?? currentQuery?.offers[0];
 
   // Smooth scroll chat feed when step changes
   useEffect(() => {
@@ -63,32 +56,30 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
 
   // Step 0 Typewriter effect: simulates someone writing the message in the input bar
   useEffect(() => {
-    if (step !== 0 || isPaused) return;
+    if (step !== 0 || isPaused || !userMessage) return;
 
-    const fullText = currentQuery.userMessage;
     // Step size to complete typing in ~1.8 seconds (approx 55-60 ticks at 30ms)
-    const stepSize = Math.max(1, Math.ceil(fullText.length / 55));
+    const stepSize = Math.max(1, Math.ceil(userMessage.length / 55));
 
     const typingInterval = setInterval(() => {
       setTypedLength((prev) => {
         const next = prev + stepSize;
-        if (next >= fullText.length) {
+        if (next >= userMessage.length) {
           clearInterval(typingInterval);
-          return fullText.length;
+          return userMessage.length;
         }
         return next;
       });
     }, 30);
 
     return () => clearInterval(typingInterval);
-  }, [step, selectedId, isPaused, currentQuery.userMessage]);
+  }, [step, selectedId, isPaused, userMessage]);
 
   // Transition from Step 0 to Step 1: once message is typed, pulse send and begin conversation
   useEffect(() => {
     if (step !== 0 || isPaused) return;
 
-    const fullText = currentQuery.userMessage;
-    if (typedLength >= fullText.length && fullText.length > 0) {
+    if (typedLength >= userMessage.length && userMessage.length > 0) {
       // Brief pause to display the completed drafted message before clicking send
       const highlightTimer = setTimeout(() => {
         setIsSendActive(true);
@@ -106,13 +97,14 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
         clearTimeout(dispatchTimer);
       };
     }
-  }, [step, typedLength, currentQuery.userMessage, isPaused]);
+    return;
+  }, [step, typedLength, userMessage, isPaused]);
 
   // Automated continuous timer engine: Step 1 -> 2 -> 3 -> 4 -> 0
   useEffect(() => {
     if (isPaused || step === 0) return;
 
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout> | undefined;
 
     if (step === 1) {
       // Step 1: Enquiry sent (show in chat for 2.2s, then show typing / step 2)
@@ -142,12 +134,13 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
       }, 4200);
     }
 
-    return () => clearTimeout(timer);
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, [step, isPaused]);
 
   const handleSwitchQuery = (id: string) => {
     setSelectedId(id);
-    if (onSelectQuery) onSelectQuery(id);
     const targetQ = t.simulation.queries.find((q) => q.id === id);
     if (targetQ && targetQ.channel) {
       setActiveChannel(targetQ.channel);
@@ -162,7 +155,7 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
 
   const handleManualStepSelect = (s: SimStep) => {
     setStep(s);
-    setTypedLength(s === 0 ? 0 : currentQuery.userMessage.length);
+    setTypedLength(s === 0 ? 0 : userMessage.length);
     setIsSendActive(false);
     setIsTyping(s === 2);
     setIsPaused(false);
@@ -182,6 +175,8 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
     setConfirmedProviderIndex(0);
     setIsPaused(false);
   };
+
+  if (!currentQuery || !selectedOffer) return null;
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -325,7 +320,19 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
 
           <div className="flex items-center gap-1.5 text-xs font-mono text-[#717774] dark:text-[#8D9490]">
             <span className={`inline-block w-1.5 h-1.5 rounded-full ${isPaused ? 'bg-amber-500' : 'bg-emerald-500 animate-pulse'}`} />
-            <span>{isPaused ? 'Paused' : step === 0 ? 'Writing message...' : `Step ${step}/4`}</span>
+            <span>
+              {isPaused
+                ? lang === 'sw'
+                  ? 'Imesitishwa'
+                  : 'Paused'
+                : step === 0
+                ? lang === 'sw'
+                  ? 'Kuandika ujumbe...'
+                  : 'Writing message...'
+                : lang === 'sw'
+                ? `Hatua ${step}/4`
+                : `Step ${step}/4`}
+            </span>
           </div>
         </div>
 
@@ -351,9 +358,7 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
                   {activeChannel === 'whatsapp' ? 'WhatsApp Business' : 'SMS'}
                 </p>
                 <p className="text-xs font-mono text-[#717774] dark:text-[#8D9490] mt-1">
-                  {activeChannel === 'whatsapp'
-                    ? 'Writing enquiry below...'
-                    : 'Kuandika ombi hapo chini...'}
+                  {lang === 'sw' ? 'Kuandika ombi hapo chini...' : 'Writing enquiry below...'}
                 </p>
               </div>
             </div>
@@ -377,7 +382,9 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
                   {activeChannel === 'whatsapp' ? (
                     <CheckCheck className="w-3 h-3 text-[#25D366]" />
                   ) : (
-                    <span className="text-xs uppercase tracking-wider">Sent</span>
+                    <span className="text-xs uppercase tracking-wider">
+                      {lang === 'sw' ? 'Imetumwa' : 'Sent'}
+                    </span>
                   )}
                 </div>
               </div>
@@ -501,7 +508,13 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
                             }`}
                           >
                             <Check className="w-3.5 h-3.5" />
-                            <span>{isSelected ? 'Confirmed' : t.simulation.selectOfferBtn}</span>
+                            <span>
+                              {isSelected
+                                ? lang === 'sw'
+                                  ? 'Imethibitishwa'
+                                  : 'Confirmed'
+                                : t.simulation.selectOfferBtn}
+                            </span>
                           </button>
                         </div>
                       </div>
@@ -534,13 +547,13 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
                         </p>
                         <div className="flex items-center justify-between">
                           <span className="text-xs text-[#717774] dark:text-[#8D9490]">
-                            Thibitisha ofa
+                            {lang === 'sw' ? 'Thibitisha ofa' : 'Confirm offer'}
                           </span>
                           <button
                             onClick={() => handleSelectOffer(idx)}
                             className="px-3 py-1.5 text-xs sm:text-sm font-semibold rounded bg-[#2541b2] hover:bg-[#1D3394] text-white transition-colors"
                           >
-                            Thibitisha
+                            {lang === 'sw' ? 'Thibitisha' : 'Confirm'}
                           </button>
                         </div>
                       </div>
@@ -566,14 +579,16 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
                   <p className="font-medium">
                     {activeChannel === 'whatsapp'
                       ? `${t.simulation.confirmedBubbleText}: ${selectedOffer.provider}`
-                      : `Thibitisha: ${selectedOffer.provider}`}
+                      : `${lang === 'sw' ? 'Thibitisha' : 'Confirm'}: ${selectedOffer.provider}`}
                   </p>
                   <div className="mt-1 flex items-center justify-end gap-1 text-xs font-mono text-[#717774] dark:text-[#8D9490]">
                     <span>10:43 AM</span>
                     {activeChannel === 'whatsapp' ? (
                       <CheckCheck className="w-3 h-3 text-[#25D366]" />
                     ) : (
-                      <span className="text-xs uppercase tracking-wider">Sent</span>
+                      <span className="text-xs uppercase tracking-wider">
+                        {lang === 'sw' ? 'Imetumwa' : 'Sent'}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -648,8 +663,16 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
               value={step === 0 ? currentQuery.userMessage.slice(0, typedLength) : ''}
               placeholder={
                 step === 0
-                  ? (activeChannel === 'whatsapp' ? 'Writing message...' : 'Kuandika ujumbe...')
-                  : (activeChannel === 'whatsapp' ? 'Type a message...' : 'Text message...')
+                  ? lang === 'sw'
+                    ? 'Kuandika ujumbe...'
+                    : 'Writing message...'
+                  : activeChannel === 'whatsapp'
+                  ? lang === 'sw'
+                    ? 'Andika ujumbe...'
+                    : 'Type a message...'
+                  : lang === 'sw'
+                  ? 'Ujumbe wa SMS...'
+                  : 'Text message...'
               }
               className={`w-full px-3 py-2 text-base rounded-lg border hairline-border bg-neutral-50 dark:bg-[#1D211F] text-[#141716] dark:text-[#E8EAE9] placeholder:text-[#8D9490] transition-all ${
                 step === 0 ? 'ring-1 ring-[#2541b2]/40 dark:ring-[#5B7CF6]/40' : ''
@@ -659,7 +682,11 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-[#2541b2] dark:text-[#5B7CF6] flex items-center gap-1.5 pointer-events-none">
                 <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#2541b2] dark:bg-[#5B7CF6] animate-ping" />
                 <span className="text-xs font-medium">
-                  {activeChannel === 'whatsapp' ? 'typing' : 'SMS'}
+                  {activeChannel === 'whatsapp'
+                    ? lang === 'sw'
+                      ? 'inaandika'
+                      : 'typing'
+                    : 'SMS'}
                 </span>
               </span>
             )}
