@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://patna.co.tz/sitemap.xml
+Sitemap: https://patnacom.co.tz/sitemap.xml

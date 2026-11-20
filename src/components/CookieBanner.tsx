@@ -29,6 +29,7 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({
     } catch {
       // Ignore storage restrictions in private browsing modes
     }
+    return;
   }, [isAccepted]);
 
   const handleAffirmativeAccept = () => {
@@ -81,6 +82,7 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({
               <input
                 type="checkbox"
                 id="banner-terms-agreement-checkbox"
+                autoComplete="off"
                 checked={agreeChecked}
                 onChange={(e) => setAgreeChecked(e.target.checked)}
                 className="mt-0.5 w-4 h-4 rounded border-neutral-300 dark:border-neutral-600 text-[#2541b2] focus:ring-[#2541b2] cursor-pointer shrink-0"

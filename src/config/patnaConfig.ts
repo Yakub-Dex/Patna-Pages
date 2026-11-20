@@ -1,8 +1,7 @@
 /**
- * Patna Configuration & Placeholders
- * 
- * Replace these placeholder values with your live production credentials,
- * official WhatsApp business number, SMS shortcodes, and contact emails.
+ * Patna Configuration
+ *
+ * Official WhatsApp business number, SMS number, contact emails, and social URLs.
  */
 
 export interface PatnaConfig {
@@ -11,11 +10,9 @@ export interface PatnaConfig {
   tagline: string;
   headquarters: string;
   country: string;
-  whatsappNumber: string; // Display format, e.g., '+255 700 000 000'
-  whatsappRaw: string; // Digits only with country code for wa.me links, e.g., '255700000000'
+  whatsappNumber: string; // Display format, e.g., '+255 683 007005'
+  whatsappRaw: string; // Digits only with country code for wa.me links, e.g., '255683007005'
   smsNumber: string;
-  smsShortcode: string;
-  contactEmail: string;
   infoEmail: string;
   businessEmail: string;
   supportPhone: string;
@@ -24,6 +21,7 @@ export interface PatnaConfig {
   iosAppStatus: 'coming_soon' | 'live';
   instagramUrl: string;
   facebookUrl: string;
+  whatsappSocialUrl: string;
   copyrightYear: number;
   solutionByline: string;
   legalEntityName: string;
@@ -41,18 +39,17 @@ export const PATNA_CONFIG: PatnaConfig = {
   whatsappNumber: '+255 683 007005',
   whatsappRaw: '255683007005',
   smsNumber: '+255 683 007005',
-  smsShortcode: '15990', // PLACEHOLDER: Local Tanzanian carrier shortcode
-  contactEmail: 'support@patnacom.co.tz', // Customer inquiries & support email
-  infoEmail: 'info@patnacom.co.tz', // General information email
-  businessEmail: 'partners@patnacom.co.tz', // Merchant onboarding email
+  infoEmail: 'info@patnacom.co.tz', // Official contact & general information email
+  businessEmail: 'support@patnacom.co.tz', // Merchant & provider inquiries email
   supportPhone: '+255 683 007005',
-  webAppUrl: 'https://patna.co.tz',
-  instagramUrl: 'https://instagram.com/patnacom', // PLACEHOLDER: Instagram handle
-  facebookUrl: 'https://facebook.com/patnacom', // PLACEHOLDER: Facebook page
+  webAppUrl: 'https://patnacom.co.tz',
+  instagramUrl: 'https://www.instagram.com/use_patna?obrf=enZjY3VhYjd1aXg4',
+  facebookUrl: 'https://www.facebook.com/Patnacom.Services',
+  whatsappSocialUrl: 'https://wa.me/255683007005?text=Hi%20Patna',
   androidAppStatus: 'coming_soon',
   iosAppStatus: 'coming_soon',
   copyrightYear: 2026,
-  googleAnalyticsId: '', // PLACEHOLDER: e.g., 'G-XXXXXXXXXX'. Leave empty for zero tracking.
+  googleAnalyticsId: '', // Optional: e.g., 'G-XXXXXXXXXX'. Leave empty for zero tracking.
 };
 
 /**
@@ -64,57 +61,3 @@ export function getWhatsAppUrl(message?: string): string {
   return `${base}?text=${encodeURIComponent(message)}`;
 }
 
-/**
- * Registry of placeholders for user handover checklist
- */
-export const REQUIRED_PLACEHOLDERS = [
-  {
-    key: 'whatsappRaw',
-    label: 'WhatsApp Business Phone Number',
-    current: PATNA_CONFIG.whatsappRaw,
-    fileLocation: 'src/config/patnaConfig.ts',
-    purpose: 'Directs all "Start on WhatsApp" and provider onboarding chats.',
-  },
-  {
-    key: 'smsNumber / smsShortcode',
-    label: 'SMS Gateway / Shortcode',
-    current: `${PATNA_CONFIG.smsShortcode} (${PATNA_CONFIG.smsNumber})`,
-    fileLocation: 'src/config/patnaConfig.ts',
-    purpose: 'Enables basic feature phone users and offline search.',
-  },
-  {
-    key: 'contactEmail / infoEmail',
-    label: 'Official Contact & Info Emails',
-    current: `${PATNA_CONFIG.contactEmail} · ${PATNA_CONFIG.infoEmail}`,
-    fileLocation: 'src/config/patnaConfig.ts',
-    purpose: 'Customer enquiries and general company information requests.',
-  },
-  {
-    key: 'businessEmail',
-    label: 'Merchant & Provider Inquiries Email',
-    current: PATNA_CONFIG.businessEmail,
-    fileLocation: 'src/config/patnaConfig.ts',
-    purpose: 'Commercial provider contracts, fleet integrations, and bulk supplier accounts.',
-  },
-  {
-    key: 'socialLinks (instagramUrl / facebookUrl)',
-    label: 'Social Media Profiles',
-    current: `Instagram: ${PATNA_CONFIG.instagramUrl} · Facebook: ${PATNA_CONFIG.facebookUrl}`,
-    fileLocation: 'src/config/patnaConfig.ts',
-    purpose: 'Official social media handles for Patnacom Services in Tanzania.',
-  },
-  {
-    key: 'legalDocuments',
-    label: 'Privacy Policy & Terms of Service URLs',
-    current: 'In-app accessible modal dialogues with complete standard terms',
-    fileLocation: 'src/config/patnaConfig.ts',
-    purpose: 'Full regulatory compliance with Tanzanian communications standards.',
-  },
-  {
-    key: 'googleAnalyticsId',
-    label: 'Google Analytics 4 Measurement ID',
-    current: PATNA_CONFIG.googleAnalyticsId || 'Not configured (privacy-first default: zero tracking)',
-    fileLocation: 'src/config/patnaConfig.ts',
-    purpose: 'Web traffic insights. Enter your G-XXXXXXXXXX ID to activate automatically, or leave blank to remain tracking-free.',
-  },
-];

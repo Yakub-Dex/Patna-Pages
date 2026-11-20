@@ -15,10 +15,10 @@ import {
   Truck,
   Phone,
   Mail,
-  FileText,
   Instagram,
   Facebook,
   Clock4,
+  MessageCircle,
 } from 'lucide-react';
 
 import { PATNA_CONFIG, getWhatsAppUrl } from './config/patnaConfig';
@@ -26,7 +26,6 @@ import { translations, Language } from './i18n/translations';
 import { Navbar } from './components/Navbar';
 import { MultiChannelSimulator } from './components/MultiChannelSimulator';
 import { FaqAccordion } from './components/FaqAccordion';
-import { PlaceholdersModal } from './components/PlaceholdersModal';
 import { LegalModal } from './components/LegalModal';
 import { CookieBanner } from './components/CookieBanner';
 import { NotFoundPage } from './components/NotFoundPage';
@@ -36,15 +35,18 @@ export default function App() {
   const [currentPath, setCurrentPath] = useState<string>(
     typeof window !== 'undefined' ? window.location.pathname : '/'
   );
-  const [lang, setLang] = useState<Language>('en');
+  const [lang, setLang] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('lang') === 'sw') return 'sw';
+    }
+    return 'en';
+  });
   const [isDark, setIsDark] = useState<boolean>(false);
-  const [placeholdersModalOpen, setPlaceholdersModalOpen] = useState<boolean>(false);
   const [legalModalType, setLegalModalType] = useState<'privacy' | 'terms' | 'merchant' | 'about' | null>(null);
-  const { isAccepted, acceptTerms } = useTermsConsent();
-  const { isMerchantAccepted, acceptMerchantAgreement } = useMerchantConsent();
-  const [heroTermsAgreed, setHeroTermsAgreed] = useState<boolean>(false);
+  const { isAccepted, acceptTerms, revokeTerms } = useTermsConsent();
+  const { isMerchantAccepted, acceptMerchantAgreement, revokeMerchantAgreement } = useMerchantConsent();
   const [showHeroWarning, setShowHeroWarning] = useState<boolean>(false);
-  const [businessTermsAgreed, setBusinessTermsAgreed] = useState<boolean>(false);
   const [showBusinessWarning, setShowBusinessWarning] = useState<boolean>(false);
 
   // Handle browser popstate navigation
@@ -125,12 +127,25 @@ export default function App() {
     }
   };
 
-  if (currentPath !== '/' && currentPath !== '') {
+  const baseUrl = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '');
+  const normalizedPath =
+    baseUrl && currentPath.startsWith(baseUrl)
+      ? currentPath.slice(baseUrl.length) || '/'
+      : currentPath;
+  const isHomeRoute =
+    normalizedPath === '/' ||
+    normalizedPath === '' ||
+    normalizedPath === '/index.html';
+
+  if (!isHomeRoute) {
+    const homeHref = import.meta.env.BASE_URL || '/';
     return (
       <NotFoundPage
+        lang={lang}
+        homeHref={homeHref}
         onGoHome={() => {
-          window.history.pushState({}, '', '/');
-          setCurrentPath('/');
+          window.history.pushState({}, '', homeHref);
+          setCurrentPath(homeHref);
         }}
       />
     );
@@ -178,11 +193,9 @@ export default function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => {
-                      if (!isAccepted && !heroTermsAgreed) {
+                      if (!isAccepted) {
                         e.preventDefault();
                         setShowHeroWarning(true);
-                      } else if (heroTermsAgreed && !isAccepted) {
-                        acceptTerms();
                       }
                     }}
                     className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base text-white bg-[#2541b2] hover:bg-[#1D3394] transition-all group"
@@ -207,12 +220,14 @@ export default function App() {
                     <input
                       type="checkbox"
                       id="hero-terms-checkbox"
-                      checked={isAccepted || heroTermsAgreed}
+                      autoComplete="off"
+                      checked={isAccepted}
                       onChange={(e) => {
-                        setHeroTermsAgreed(e.target.checked);
                         if (e.target.checked) {
                           acceptTerms();
                           setShowHeroWarning(false);
+                        } else {
+                          revokeTerms();
                         }
                       }}
                       className="mt-0.5 w-4 h-4 rounded border-neutral-300 dark:border-neutral-600 text-[#2541b2] focus:ring-[#2541b2] cursor-pointer shrink-0"
@@ -261,7 +276,7 @@ export default function App() {
                       )}
                     </span>
                   </label>
-                  {showHeroWarning && !isAccepted && !heroTermsAgreed && (
+                  {showHeroWarning && !isAccepted && (
                     <p className="mt-1.5 text-xs font-medium text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
                       <span>⚠️</span>
                       <span>
@@ -292,7 +307,7 @@ export default function App() {
 
               {/* Right Column: Interactive WhatsApp & Multi-Channel Chat Simulator */}
               <div className="lg:col-span-6 flex justify-center lg:justify-end">
-                <MultiChannelSimulator t={t} />
+                <MultiChannelSimulator t={t} lang={lang} />
               </div>
             </div>
           </div>
@@ -580,11 +595,9 @@ export default function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => {
-                      if (!isMerchantAccepted && !businessTermsAgreed) {
+                      if (!isMerchantAccepted) {
                         e.preventDefault();
                         setShowBusinessWarning(true);
-                      } else if (businessTermsAgreed && !isMerchantAccepted) {
-                        acceptMerchantAgreement();
                       }
                     }}
                     className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base text-white bg-[#2541b2] hover:bg-[#1D3394] transition-all group"
@@ -601,12 +614,14 @@ export default function App() {
                     <input
                       type="checkbox"
                       id="business-terms-checkbox"
-                      checked={isMerchantAccepted || businessTermsAgreed}
+                      autoComplete="off"
+                      checked={isMerchantAccepted}
                       onChange={(e) => {
-                        setBusinessTermsAgreed(e.target.checked);
                         if (e.target.checked) {
                           acceptMerchantAgreement();
                           setShowBusinessWarning(false);
+                        } else {
+                          revokeMerchantAgreement();
                         }
                       }}
                       className="mt-0.5 w-4 h-4 rounded border-neutral-300 dark:border-neutral-600 text-[#2541b2] focus:ring-[#2541b2] cursor-pointer shrink-0"
@@ -639,7 +654,7 @@ export default function App() {
                       )}
                     </span>
                   </label>
-                  {showBusinessWarning && !isMerchantAccepted && !businessTermsAgreed && (
+                  {showBusinessWarning && !isMerchantAccepted && (
                     <p className="mt-1.5 text-xs font-medium text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
                       <span>⚠️</span>
                       <span>
@@ -721,15 +736,6 @@ export default function App() {
                     {t.footer.terms}
                   </button>
                 </li>
-                <li>
-                  <button
-                    onClick={() => setPlaceholdersModalOpen(true)}
-                    className="hover:text-[#2541b2] dark:hover:text-[#5B7CF6] text-xs font-mono text-left underline underline-offset-2 flex items-center gap-1"
-                  >
-                    <FileText className="w-3 h-3" />
-                    <span>{t.footer.placeholdersTrigger}</span>
-                  </button>
-                </li>
               </ul>
             </div>
 
@@ -740,18 +746,18 @@ export default function App() {
               </span>
               <div className="space-y-2.5 text-xs">
                 <a
-                  href={`mailto:${PATNA_CONFIG.contactEmail}`}
-                  className="flex items-center gap-2 hover:text-[#2541b2] dark:hover:text-[#5B7CF6] transition-colors"
-                >
-                  <Mail className="w-3.5 h-3.5 text-neutral-400" />
-                  <span>{PATNA_CONFIG.contactEmail}</span>
-                </a>
-                <a
                   href={`mailto:${PATNA_CONFIG.infoEmail}`}
                   className="flex items-center gap-2 hover:text-[#2541b2] dark:hover:text-[#5B7CF6] transition-colors"
                 >
                   <Mail className="w-3.5 h-3.5 text-neutral-400" />
                   <span>{PATNA_CONFIG.infoEmail}</span>
+                </a>
+                <a
+                  href={`mailto:${PATNA_CONFIG.businessEmail}`}
+                  className="flex items-center gap-2 hover:text-[#2541b2] dark:hover:text-[#5B7CF6] transition-colors"
+                >
+                  <Mail className="w-3.5 h-3.5 text-neutral-400" />
+                  <span>{PATNA_CONFIG.businessEmail}</span>
                 </a>
                 <a
                   href={getWhatsAppUrl('Hi Patna, I have a general question')}
@@ -773,6 +779,16 @@ export default function App() {
                     {t.footer.socialTitle}
                   </span>
                   <div className="flex items-center gap-2">
+                    <a
+                      href={PATNA_CONFIG.whatsappSocialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-lg border hairline-border bg-neutral-50 dark:bg-[#161918] text-[#5B615E] dark:text-[#9BA19E] hover:text-[#2541b2] dark:hover:text-[#5B7CF6] hover:border-[#2541b2]/40 hover:bg-neutral-100 dark:hover:bg-[#1D211F] transition-all"
+                      title="WhatsApp"
+                      aria-label="Patna on WhatsApp"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                    </a>
                     <a
                       href={PATNA_CONFIG.instagramUrl}
                       target="_blank"
@@ -806,12 +822,6 @@ export default function App() {
           </div>
         </div>
       </footer>
-
-      {/* Placeholders Handover Modal */}
-      <PlaceholdersModal
-        isOpen={placeholdersModalOpen}
-        onClose={() => setPlaceholdersModalOpen(false)}
-      />
 
       {/* Legal Terms / Privacy Modal */}
       <LegalModal

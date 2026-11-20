@@ -8,48 +8,53 @@ export interface TermsConsentState {
 
 const STORAGE_KEY = 'patna_terms_affirmative_acceptance';
 const CURRENT_VERSION = '2026-11-12';
+const MERCHANT_STORAGE_KEY = 'patna_merchant_agreement_acceptance';
+const MERCHANT_VERSION = '2026-11-11';
+
+// Clear any previously persisted acceptance from earlier builds so refresh always resets checkboxes
+if (typeof window !== 'undefined') {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(MERCHANT_STORAGE_KEY);
+  } catch {
+    // localStorage unavailable
+  }
+}
+
+let sessionTermsConsent: TermsConsentState = {
+  accepted: false,
+  acceptedAt: null,
+  version: CURRENT_VERSION,
+};
+
+let sessionMerchantConsent: TermsConsentState = {
+  accepted: false,
+  acceptedAt: null,
+  version: MERCHANT_VERSION,
+};
 
 export const getStoredTermsConsent = (): TermsConsentState => {
-  if (typeof window === 'undefined') {
-    return { accepted: false, acceptedAt: null, version: CURRENT_VERSION };
-  }
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return { accepted: false, acceptedAt: null, version: CURRENT_VERSION };
-    const parsed = JSON.parse(raw);
-    return {
-      accepted: Boolean(parsed.accepted),
-      acceptedAt: parsed.acceptedAt || null,
-      version: parsed.version || CURRENT_VERSION,
-    };
-  } catch {
-    return { accepted: false, acceptedAt: null, version: CURRENT_VERSION };
-  }
+  return sessionTermsConsent;
 };
 
 export const setStoredTermsConsent = (accepted: boolean): TermsConsentState => {
-  const state: TermsConsentState = {
+  sessionTermsConsent = {
     accepted,
     acceptedAt: accepted ? new Date().toISOString() : null,
     version: CURRENT_VERSION,
   };
-  try {
-    if (accepted) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      // Also mark cookie consent as accepted for convenience
-      localStorage.setItem('patna_cookie_consent', 'accepted');
-    } else {
-      localStorage.removeItem(STORAGE_KEY);
-    }
-    window.dispatchEvent(new CustomEvent('patna_terms_changed', { detail: state }));
-  } catch {
-    // localStorage unavailable
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(
+      new CustomEvent('patna_terms_changed', { detail: sessionTermsConsent })
+    );
   }
-  return state;
+  return sessionTermsConsent;
 };
 
 export const useTermsConsent = () => {
-  const [consent, setConsent] = useState<TermsConsentState>(() => getStoredTermsConsent());
+  const [consent, setConsent] = useState<TermsConsentState>(() =>
+    getStoredTermsConsent()
+  );
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -61,10 +66,8 @@ export const useTermsConsent = () => {
       }
     };
     window.addEventListener('patna_terms_changed', handler);
-    window.addEventListener('storage', handler);
     return () => {
       window.removeEventListener('patna_terms_changed', handler);
-      window.removeEventListener('storage', handler);
     };
   }, []);
 
@@ -86,48 +89,32 @@ export const useTermsConsent = () => {
   };
 };
 
-const MERCHANT_STORAGE_KEY = 'patna_merchant_agreement_acceptance';
-const MERCHANT_VERSION = '2026-11-11';
-
 export const getStoredMerchantConsent = (): TermsConsentState => {
-  if (typeof window === 'undefined') {
-    return { accepted: false, acceptedAt: null, version: MERCHANT_VERSION };
-  }
-  try {
-    const raw = localStorage.getItem(MERCHANT_STORAGE_KEY);
-    if (!raw) return { accepted: false, acceptedAt: null, version: MERCHANT_VERSION };
-    const parsed = JSON.parse(raw);
-    return {
-      accepted: Boolean(parsed.accepted),
-      acceptedAt: parsed.acceptedAt || null,
-      version: parsed.version || MERCHANT_VERSION,
-    };
-  } catch {
-    return { accepted: false, acceptedAt: null, version: MERCHANT_VERSION };
-  }
+  return sessionMerchantConsent;
 };
 
-export const setStoredMerchantConsent = (accepted: boolean): TermsConsentState => {
-  const state: TermsConsentState = {
+export const setStoredMerchantConsent = (
+  accepted: boolean
+): TermsConsentState => {
+  sessionMerchantConsent = {
     accepted,
     acceptedAt: accepted ? new Date().toISOString() : null,
     version: MERCHANT_VERSION,
   };
-  try {
-    if (accepted) {
-      localStorage.setItem(MERCHANT_STORAGE_KEY, JSON.stringify(state));
-    } else {
-      localStorage.removeItem(MERCHANT_STORAGE_KEY);
-    }
-    window.dispatchEvent(new CustomEvent('patna_merchant_changed', { detail: state }));
-  } catch {
-    // localStorage unavailable
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(
+      new CustomEvent('patna_merchant_changed', {
+        detail: sessionMerchantConsent,
+      })
+    );
   }
-  return state;
+  return sessionMerchantConsent;
 };
 
 export const useMerchantConsent = () => {
-  const [consent, setConsent] = useState<TermsConsentState>(() => getStoredMerchantConsent());
+  const [consent, setConsent] = useState<TermsConsentState>(() =>
+    getStoredMerchantConsent()
+  );
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -139,10 +126,8 @@ export const useMerchantConsent = () => {
       }
     };
     window.addEventListener('patna_merchant_changed', handler);
-    window.addEventListener('storage', handler);
     return () => {
       window.removeEventListener('patna_merchant_changed', handler);
-      window.removeEventListener('storage', handler);
     };
   }, []);
 
@@ -163,3 +148,4 @@ export const useMerchantConsent = () => {
     revokeMerchantAgreement,
   };
 };
+
