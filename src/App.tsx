@@ -736,10 +736,10 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-12">
             {/* Col 1: Brand */}
             <div>
-              <span className="text-2xl sm:text-3xl font-extrabold text-[#2541b2] dark:text-[#5B7CF6] tracking-tight">
+              <span className="text-2xl sm:text-3xl font-extrabold text-[#2541b2] dark:text-[#5B7CF6] tracking-tight font-brand">
                 {PATNA_CONFIG.brandName}<span className="text-[#141716] dark:text-white">.</span>
               </span>
-              <p className="mt-2 text-xs text-[#717774] dark:text-[#8D9490]">
+              <p className="mt-2 text-sm text-[#717774] dark:text-[#8D9490]">
                 {PATNA_CONFIG.solutionByline}
               </p>
             </div>
@@ -749,7 +749,7 @@ export default function App() {
               <span className="text-xs font-mono uppercase tracking-wider text-[#141716] dark:text-[#E8EAE9] font-bold block mb-3">
                 {t.footer.legalTitle}
               </span>
-              <ul className="space-y-2 text-xs">
+              <ul className="space-y-2.5 text-sm">
                 <li>
                   <button
                     onClick={() => setLegalModalType('about')}
@@ -782,19 +782,19 @@ export default function App() {
               <span className="text-xs font-mono uppercase tracking-wider text-[#141716] dark:text-[#E8EAE9] font-bold block mb-3">
                 {t.footer.contactTitle}
               </span>
-              <div className="space-y-2.5 text-xs">
+              <div className="space-y-2.5 text-sm">
                 <a
                   href={`mailto:${PATNA_CONFIG.infoEmail}`}
                   className="flex items-center gap-2 hover:text-[#2541b2] dark:hover:text-[#5B7CF6] transition-colors"
                 >
-                  <Mail className="w-3.5 h-3.5 text-neutral-400" />
+                  <Mail className="w-4 h-4 text-neutral-400" />
                   <span>{PATNA_CONFIG.infoEmail}</span>
                 </a>
                 <a
                   href={`mailto:${PATNA_CONFIG.businessEmail}`}
                   className="flex items-center gap-2 hover:text-[#2541b2] dark:hover:text-[#5B7CF6] transition-colors"
                 >
-                  <Mail className="w-3.5 h-3.5 text-neutral-400" />
+                  <Mail className="w-4 h-4 text-neutral-400" />
                   <span>{PATNA_CONFIG.businessEmail}</span>
                 </a>
                 <a
@@ -803,11 +803,11 @@ export default function App() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 hover:text-[#2541b2] dark:hover:text-[#5B7CF6] transition-colors"
                 >
-                  <Phone className="w-3.5 h-3.5 text-neutral-400" />
+                  <Phone className="w-4 h-4 text-neutral-400" />
                   <span>{PATNA_CONFIG.whatsappNumber}</span>
                 </a>
                 <div className="flex items-center gap-2 text-[#717774] dark:text-[#8D9490]">
-                  <MapPin className="w-3.5 h-3.5 text-neutral-400" />
+                  <MapPin className="w-4 h-4 text-neutral-400" />
                   <span>{PATNA_CONFIG.headquarters}, {PATNA_CONFIG.country}</span>
                 </div>
 
@@ -853,7 +853,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="pt-8 border-t hairline-border text-xs text-[#717774] dark:text-[#8D9490]">
+          <div className="pt-8 border-t hairline-border text-sm text-[#717774] dark:text-[#8D9490]">
             <p>
               © {PATNA_CONFIG.copyrightYear} {PATNA_CONFIG.companyName}. {t.footer.rightsReserved}
             </p>

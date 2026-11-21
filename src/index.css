@@ -4,7 +4,8 @@
 
 @layer base {
   :root {
-    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-sans: 'Lato', system-ui, -apple-system, sans-serif;
+    --font-brand: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
 
@@ -15,6 +16,10 @@
   code, kbd, samp, pre {
     font-family: var(--font-mono);
   }
+}
+
+.font-brand {
+  font-family: var(--font-brand);
 }
 
 /* Custom hairline borders and editorial focus outlines */
