@@ -141,7 +141,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2.5 sm:gap-6">
         {/* Left: Brand Wordmark (pinned) */}
         <a href="#" className="flex items-baseline group whitespace-nowrap shrink-0">
-          <span className="text-xl sm:text-3xl font-extrabold tracking-tight text-[#2541b2] dark:text-[#5B7CF6] font-sans hover:opacity-90 transition-opacity">
+          <span className="text-xl sm:text-3xl font-extrabold tracking-tight text-[#2541b2] dark:text-[#5B7CF6] font-brand hover:opacity-90 transition-opacity">
             {PATNA_CONFIG.brandName}<span className="text-[#141716] dark:text-white">.</span>
           </span>
         </a>

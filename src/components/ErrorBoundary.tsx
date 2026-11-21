@@ -116,7 +116,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
       >
         <header className="w-full border-b hairline-border px-6 py-4 flex items-center justify-between">
           <a href="/" className="flex items-baseline">
-            <span className="text-2xl font-extrabold tracking-tight text-[#2541b2] dark:text-[#5B7CF6]">
+            <span className="text-2xl font-extrabold tracking-tight text-[#2541b2] dark:text-[#5B7CF6] font-brand">
               {PATNA_CONFIG.brandName}<span className="text-[#141716] dark:text-white">.</span>
             </span>
           </a>
