@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { Language, TranslationDictionary } from '../i18n/translations';
 import { getWhatsAppUrl } from '../config/patnaConfig';
+import { EmptyState } from './EmptyState';
 
 interface MultiChannelSimulatorProps {
   t: TranslationDictionary;
@@ -176,7 +177,24 @@ export const MultiChannelSimulator: React.FC<MultiChannelSimulatorProps> = ({
     setIsPaused(false);
   };
 
-  if (!currentQuery || !selectedOffer) return null;
+  if (!currentQuery || !selectedOffer) {
+    return (
+      <div className="w-full max-w-md lg:max-w-lg">
+        <EmptyState
+          lang={lang}
+          compact
+          title={lang === 'sw' ? 'Hakuna mfano uliochaguliwa' : 'No simulation scenario available'}
+          description={
+            lang === 'sw'
+              ? 'Hatukuweza kupata mfano wa mazungumzo uliouchagua. Bonyeza kuweka upya.'
+              : 'No matching preview scenario was found. Reset to reload the default example.'
+          }
+          actionLabel={lang === 'sw' ? 'Weka upya mfano' : 'Reset preview'}
+          onAction={() => handleSwitchQuery('phone')}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full flex flex-col items-center">

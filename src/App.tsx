@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import {
   MessageSquare,
   ArrowRight,
@@ -26,10 +26,18 @@ import { translations, Language } from './i18n/translations';
 import { Navbar } from './components/Navbar';
 import { MultiChannelSimulator } from './components/MultiChannelSimulator';
 import { FaqAccordion } from './components/FaqAccordion';
-import { LegalModal } from './components/LegalModal';
 import { CookieBanner } from './components/CookieBanner';
 import { NotFoundPage } from './components/NotFoundPage';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { LoadingState } from './components/LoadingState';
+import { EmptyState } from './components/EmptyState';
+import { NetworkStatusBanner } from './components/NetworkStatusBanner';
+import { useNetworkState } from './hooks/useNetworkState';
 import { useTermsConsent, useMerchantConsent } from './utils/termsConsent';
+
+const LegalModal = lazy(() =>
+  import('./components/LegalModal').then((m) => ({ default: m.LegalModal }))
+);
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState<string>(
@@ -48,6 +56,7 @@ export default function App() {
   const { isMerchantAccepted, acceptMerchantAgreement, revokeMerchantAgreement } = useMerchantConsent();
   const [showHeroWarning, setShowHeroWarning] = useState<boolean>(false);
   const [showBusinessWarning, setShowBusinessWarning] = useState<boolean>(false);
+  const network = useNetworkState();
 
   // Handle browser popstate navigation
   useEffect(() => {
@@ -161,6 +170,9 @@ export default function App() {
         onToggleDark={handleToggleDark}
         t={t}
       />
+
+      {/* Offline / Slow Network Alert Banner */}
+      <NetworkStatusBanner lang={lang} network={network} />
 
       <main className="flex-1">
         {/* 2. Hero Section */}
@@ -307,14 +319,16 @@ export default function App() {
 
               {/* Right Column: Interactive WhatsApp & Multi-Channel Chat Simulator */}
               <div className="lg:col-span-6 flex justify-center lg:justify-end">
-                <MultiChannelSimulator t={t} lang={lang} />
+                <ErrorBoundary variant="inline" lang={lang}>
+                  <MultiChannelSimulator t={t} lang={lang} />
+                </ErrorBoundary>
               </div>
             </div>
           </div>
         </section>
 
         {/* 3. How It Works (4 Steps with Monospace Indexing) */}
-        <section id="how-it-works" className="py-16 sm:py-24 border-b hairline-border bg-neutral-50/40 dark:bg-[#0E1110]">
+        <section id="how-it-works" className="scroll-mt-16 py-16 sm:py-24 border-b hairline-border bg-neutral-50/40 dark:bg-[#0E1110]">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header */}
             <div className="max-w-2xl mb-12 sm:mb-16">
@@ -412,7 +426,7 @@ export default function App() {
         </section>
 
         {/* 5. What You Can Search (Bento Categories) */}
-        <section id="categories" className="py-16 sm:py-24 border-b hairline-border bg-neutral-50/40 dark:bg-[#0E1110]">
+        <section id="categories" className="scroll-mt-16 py-16 sm:py-24 border-b hairline-border bg-neutral-50/40 dark:bg-[#0E1110]">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mb-12 sm:mb-16">
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#2541b2] dark:text-[#5B7CF6] block mb-2">
@@ -426,46 +440,58 @@ export default function App() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-              {t.categories.items.map((cat) => (
-                <div
-                  key={cat.id}
-                  className={`p-6 rounded-2xl border hairline-border bg-white dark:bg-[#121514] flex flex-col justify-between hover:border-[#2541b2]/40 transition-all h-full ${
-                    cat.isComingSoon ? 'opacity-85 border-dashed' : ''
-                  }`}
-                >
-                  <div className="flex-1 flex flex-col">
-                    <div className="flex items-center justify-end mb-3 min-h-[22px]">
-                      {cat.isComingSoon && (
-                        <span className="inline-flex items-center gap-1 text-xs font-mono px-2 py-0.5 rounded bg-[#F5B942]/15 text-[#b07d1a] dark:text-[#F5B942] border border-[#F5B942]/30 font-medium">
-                          <Clock4 className="w-2.5 h-2.5 text-[#b07d1a] dark:text-[#F5B942] shrink-0" />
-                          <span>{lang === 'sw' ? 'Inakuja Hivi Karibuni' : 'Coming Soon'}</span>
-                        </span>
-                      )}
-                    </div>
+            {t.categories.items.length === 0 ? (
+              <EmptyState
+                lang={lang}
+                title={lang === 'sw' ? 'Hakuna vipengele vya kutafuta' : 'No search categories available'}
+                description={
+                  lang === 'sw'
+                    ? 'Orodha ya kategoria haipatikani kwa sasa.'
+                    : 'Search categories are currently unavailable.'
+                }
+              />
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+                {t.categories.items.map((cat) => (
+                  <div
+                    key={cat.id}
+                    className={`p-6 rounded-2xl border hairline-border bg-white dark:bg-[#121514] flex flex-col justify-between hover:border-[#2541b2]/40 transition-all h-full ${
+                      cat.isComingSoon ? 'opacity-85 border-dashed' : ''
+                    }`}
+                  >
+                    <div className="flex-1 flex flex-col">
+                      <div className="flex items-center justify-end mb-3 min-h-[22px]">
+                        {cat.isComingSoon && (
+                          <span className="inline-flex items-center gap-1 text-xs font-mono px-2 py-0.5 rounded bg-[#F5B942]/15 text-[#b07d1a] dark:text-[#F5B942] border border-[#F5B942]/30 font-medium">
+                            <Clock4 className="w-2.5 h-2.5 text-[#b07d1a] dark:text-[#F5B942] shrink-0" />
+                            <span>{lang === 'sw' ? 'Inakuja Hivi Karibuni' : 'Coming Soon'}</span>
+                          </span>
+                        )}
+                      </div>
 
-                    <h3 className="text-xl font-bold text-[#141716] dark:text-[#E8EAE9] mb-1.5 min-h-[28px] flex items-center">
-                      {cat.title}
-                    </h3>
-                    <p className="text-base text-[#5B615E] dark:text-[#9BA19E] mb-5 min-h-[56px] sm:min-h-[64px] flex items-start leading-relaxed">
-                      {cat.description}
-                    </p>
-
-                    {/* Example Query Box */}
-                    <div className="p-3.5 rounded-xl bg-[#F7F8F7] dark:bg-[#161918] border border-neutral-200/80 dark:border-neutral-800 flex items-center mt-auto">
-                      <p className="text-sm italic text-[#141716] dark:text-[#E8EAE9] line-clamp-2">
-                        {cat.example}
+                      <h3 className="text-xl font-bold text-[#141716] dark:text-[#E8EAE9] mb-1.5 min-h-[28px] flex items-center">
+                        {cat.title}
+                      </h3>
+                      <p className="text-base text-[#5B615E] dark:text-[#9BA19E] mb-5 min-h-[56px] sm:min-h-[64px] flex items-start leading-relaxed">
+                        {cat.description}
                       </p>
+
+                      {/* Example Query Box */}
+                      <div className="p-3.5 rounded-xl bg-[#F7F8F7] dark:bg-[#161918] border border-neutral-200/80 dark:border-neutral-800 flex items-center mt-auto">
+                        <p className="text-sm italic text-[#141716] dark:text-[#E8EAE9] line-clamp-2">
+                          {cat.example}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
         {/* 6. Built For Every Sector (Audiences: Service Companies, Entrepreneurs, Food, Manufacturers, Traders, Transporters) */}
-        <section id="audiences" className="py-16 sm:py-24 border-b hairline-border">
+        <section id="audiences" className="scroll-mt-16 py-16 sm:py-24 border-b hairline-border">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mb-12 sm:mb-16">
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#2541b2] dark:text-[#5B7CF6] block mb-2">
@@ -553,7 +579,7 @@ export default function App() {
         </section>
 
         {/* 8. For Businesses (Pitch to Merchants & Providers) */}
-        <section id="for-businesses" className="py-16 sm:py-24 border-b hairline-border bg-neutral-50/40 dark:bg-[#0E1110]">
+        <section id="for-businesses" className="scroll-mt-16 py-16 sm:py-24 border-b hairline-border bg-neutral-50/40 dark:bg-[#0E1110]">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl space-y-6">
               <div>
@@ -686,7 +712,19 @@ export default function App() {
             </div>
 
             <div className="max-w-4xl">
-              <FaqAccordion t={t} />
+              {t.faq.items.length === 0 ? (
+                <EmptyState
+                  lang={lang}
+                  title={lang === 'sw' ? 'Hakuna maswali kwa sasa' : 'No FAQs available yet'}
+                  description={
+                    lang === 'sw'
+                      ? 'Maswali yanayoulizwa mara kwa mara yatapatikana hivi karibuni.'
+                      : 'Frequently asked questions are currently unavailable.'
+                  }
+                />
+              ) : (
+                <FaqAccordion t={t} />
+              )}
             </div>
           </div>
         </section>
@@ -823,11 +861,28 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Legal Terms / Privacy Modal */}
-      <LegalModal
-        type={legalModalType}
-        onClose={() => setLegalModalType(null)}
-      />
+      {/* Legal Terms / Privacy Modal (Lazy-loaded with LoadingState fallback & ErrorBoundary) */}
+      {legalModalType !== null && (
+        <ErrorBoundary variant="inline" lang={lang} onReset={() => setLegalModalType(null)}>
+          <Suspense
+            fallback={
+              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                <div className="w-full max-w-md rounded-2xl border hairline-border bg-white dark:bg-[#121514] shadow-2xl">
+                  <LoadingState
+                    lang={lang}
+                    label={lang === 'sw' ? 'Inapakia waraka...' : 'Loading document...'}
+                  />
+                </div>
+              </div>
+            }
+          >
+            <LegalModal
+              type={legalModalType}
+              onClose={() => setLegalModalType(null)}
+            />
+          </Suspense>
+        </ErrorBoundary>
+      )}
 
       {/* Terms & Cookie Consent Banner */}
       <CookieBanner

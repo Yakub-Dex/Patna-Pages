@@ -24,12 +24,12 @@ export const TermsOfServiceContent: React.FC = () => {
         <p>
           <strong>Website:</strong>{' '}
           <a
-            href="https://patnacom.co.tz"
+            href="https://www.patnacom.co.tz/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#2541b2] dark:text-[#5B7CF6] underline hover:opacity-80"
           >
-            https://patnacom.co.tz
+            https://www.patnacom.co.tz/
           </a>
         </p>
       </div>
@@ -788,12 +788,12 @@ export const TermsOfServiceContent: React.FC = () => {
           <p>
             <strong>Website:</strong>{' '}
             <a
-              href="https://patnacom.co.tz"
+              href="https://www.patnacom.co.tz/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#2541b2] dark:text-[#5B7CF6] underline"
             >
-              https://patnacom.co.tz
+              https://www.patnacom.co.tz/
             </a>
           </p>
           <p className="pt-1 text-[#717774] dark:text-[#8D9490]">

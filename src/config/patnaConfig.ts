@@ -42,7 +42,7 @@ export const PATNA_CONFIG: PatnaConfig = {
   infoEmail: 'info@patnacom.co.tz', // Official contact & general information email
   businessEmail: 'support@patnacom.co.tz', // Merchant & provider inquiries email
   supportPhone: '+255 683 007005',
-  webAppUrl: 'https://patnacom.co.tz',
+  webAppUrl: 'https://www.patnacom.co.tz/',
   instagramUrl: 'https://www.instagram.com/use_patna?obrf=enZjY3VhYjd1aXg4',
   facebookUrl: 'https://www.facebook.com/Patnacom.Services',
   whatsappSocialUrl: 'https://wa.me/255683007005?text=Hi%20Patna',
