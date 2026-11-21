@@ -314,7 +314,7 @@ export default function App() {
         </section>
 
         {/* 3. How It Works (4 Steps with Monospace Indexing) */}
-        <section id="how-it-works" className="py-16 sm:py-24 border-b hairline-border bg-neutral-50/40 dark:bg-[#0E1110]">
+        <section id="how-it-works" className="scroll-mt-16 py-16 sm:py-24 border-b hairline-border bg-neutral-50/40 dark:bg-[#0E1110]">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header */}
             <div className="max-w-2xl mb-12 sm:mb-16">
@@ -412,7 +412,7 @@ export default function App() {
         </section>
 
         {/* 5. What You Can Search (Bento Categories) */}
-        <section id="categories" className="py-16 sm:py-24 border-b hairline-border bg-neutral-50/40 dark:bg-[#0E1110]">
+        <section id="categories" className="scroll-mt-16 py-16 sm:py-24 border-b hairline-border bg-neutral-50/40 dark:bg-[#0E1110]">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mb-12 sm:mb-16">
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#2541b2] dark:text-[#5B7CF6] block mb-2">
@@ -465,7 +465,7 @@ export default function App() {
         </section>
 
         {/* 6. Built For Every Sector (Audiences: Service Companies, Entrepreneurs, Food, Manufacturers, Traders, Transporters) */}
-        <section id="audiences" className="py-16 sm:py-24 border-b hairline-border">
+        <section id="audiences" className="scroll-mt-16 py-16 sm:py-24 border-b hairline-border">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mb-12 sm:mb-16">
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#2541b2] dark:text-[#5B7CF6] block mb-2">
@@ -553,7 +553,7 @@ export default function App() {
         </section>
 
         {/* 8. For Businesses (Pitch to Merchants & Providers) */}
-        <section id="for-businesses" className="py-16 sm:py-24 border-b hairline-border bg-neutral-50/40 dark:bg-[#0E1110]">
+        <section id="for-businesses" className="scroll-mt-16 py-16 sm:py-24 border-b hairline-border bg-neutral-50/40 dark:bg-[#0E1110]">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl space-y-6">
               <div>

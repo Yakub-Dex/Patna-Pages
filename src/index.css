@@ -33,3 +33,13 @@
 .dark .hairline-divide > * + * {
   border-color: rgba(232, 234, 233, 0.08);
 }
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
